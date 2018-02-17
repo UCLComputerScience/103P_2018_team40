@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterSpawner : MonoBehaviour {
+public class MonsterSpawner : MonoBehaviour
+{
+    public GameObject[] Prefabs;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public bool NeedSpawn = true;
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (NeedSpawn)
+        {
+            SpawnEnemy();
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        var newTransform = transform;
+        Instantiate(Prefabs[Random.Range(0, Prefabs.Length)], newTransform.position, Quaternion.identity);
+        NeedSpawn = false;
+    }
 }
