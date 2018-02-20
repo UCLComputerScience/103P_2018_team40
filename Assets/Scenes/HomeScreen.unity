@@ -247,7 +247,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 245379654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.190001, y: 0.74, z: 50}
+  m_LocalPosition: {x: -11.190001, y: 0.81, z: 50}
   m_LocalScale: {x: 0.87451226, y: 0.87451226, z: 0.87451226}
   m_Children: []
   m_Father: {fileID: 2093285310}
@@ -800,6 +800,7 @@ GameObject:
   m_Component:
   - component: {fileID: 676498728}
   - component: {fileID: 676498727}
+  - component: {fileID: 676498729}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -864,6 +865,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &676498729
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 676498726}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ba713f45911c55c4296fb5c1bfeec37f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &715072343
 GameObject:
   m_ObjectHideFlags: 0
