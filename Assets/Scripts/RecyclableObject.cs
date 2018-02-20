@@ -25,8 +25,9 @@ public class RecyclableObject : MonoBehaviour
         }
     }
 
-    public void Restart()
+    public void Restart(Vector3 pos)
     {
+        gameObject.transform.position = pos;
         gameObject.SetActive(true);
         foreach (var com in _recycleComponents)
         {

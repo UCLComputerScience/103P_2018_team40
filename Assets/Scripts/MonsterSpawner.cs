@@ -8,6 +8,13 @@ public class MonsterSpawner : MonoBehaviour
 
     public bool NeedSpawn = true;
 
+    private ObjectPool op;
+
+    private void Start()
+    {
+        op = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -20,7 +27,7 @@ public class MonsterSpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         var newTransform = transform;
-        Instantiate(Prefabs[Random.Range(0, Prefabs.Length)], newTransform.position, Quaternion.identity);
+        op.Create(Prefabs[Random.Range(0, Prefabs.Length)], newTransform.position);
         NeedSpawn = false;
     }
 }
