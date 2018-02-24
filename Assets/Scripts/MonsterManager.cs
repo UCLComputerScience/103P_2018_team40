@@ -10,11 +10,13 @@ public class MonsterManager : MonoBehaviour
     public int SpawnDelay = 3;
 
     //private ObjectPool op;
-    private GameObject _monster;
+    private Monster _monster;
+    private UIHandler _ui;
 
     private void Awake()
     {
         //op = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+        _ui = GameObject.Find("Canvas").GetComponent<UIHandler>();
     }
 
     // Update is called once per frame
@@ -35,19 +37,20 @@ public class MonsterManager : MonoBehaviour
     {
         NeedSpawn = false;
         yield return new WaitForSeconds(SpawnDelay);
-        
-        _monster = GameObject.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
-        _monster.transform.position = transform.position;
-        _monster.transform.parent = transform;
-        _monster.GetComponent<Monster>().SetTotalHealth(Random.Range(1000, 4000));
+
+        var go = GameObject.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
+        go.transform.position = transform.position;
+        go.transform.parent = transform;
+        _monster = go.GetComponent<Monster>();
+        _monster.SetTotalHealth(Random.Range(1000, 4000));
         //var newTransform = transform;
         //Instantiate(Prefabs[Random.Range(0, Prefabs.Length)], newTransform.position, Quaternion.identity);
-        
     }
 
     public void KillMonster()
     {
-        GameObject.Destroy(_monster);
         NeedSpawn = true;
+        _ui.UpdateCoins(_monster.GetReward());
+        GameObject.Destroy(_monster.gameObject);
     }
 }
