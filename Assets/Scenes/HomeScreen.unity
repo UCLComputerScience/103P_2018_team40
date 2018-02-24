@@ -595,7 +595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &498721893
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1399,6 +1399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1132317670}
   - component: {fileID: 1132317671}
+  - component: {fileID: 1132317672}
   m_Layer: 0
   m_Name: Healthbar
   m_TagString: Untagged
@@ -1463,6 +1464,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &1132317672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1132317669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8e7f40043e035469192d0195d2d653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1138316691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,7 +1995,7 @@ GameObject:
   - component: {fileID: 1864607964}
   - component: {fileID: 1864607963}
   m_Layer: 0
-  m_Name: MonsterSpawner
+  m_Name: MonsterManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2002,7 +2014,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefabs:
   - {fileID: 1774117397416114, guid: e3b9f6093c334eb4fb7c8679ca3c5166, type: 2}
+  ConstantDamage: 100
   NeedSpawn: 1
+  SpawnDelay: 2
 --- !u!4 &1864607964
 Transform:
   m_ObjectHideFlags: 0
