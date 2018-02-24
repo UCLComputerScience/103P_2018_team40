@@ -13,9 +13,15 @@ public class UIHandler : MonoBehaviour
         _coinText = GameObject.Find("Canvas/CoinPanel/CoinText").GetComponent<Text>();
     }
 
-    public void UpdateCoins(int coinChange)
+    public IEnumerator UpdateCoins(int coinChange)
     {
-        int newCoin = Int32.Parse(_coinText.text) + coinChange;
-        _coinText.text = newCoin.ToString();
+        int currentCoin = Int32.Parse(_coinText.text);
+        
+        for (int i = 1; i <= 50; i++)
+        {
+            int newCoin = currentCoin + coinChange * i / 50;
+            _coinText.text = newCoin.ToString();
+            yield return new WaitForSeconds(0.01F);
+        }
     }
 }

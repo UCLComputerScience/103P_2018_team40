@@ -50,7 +50,7 @@ public class MonsterManager : MonoBehaviour
     public void KillMonster()
     {
         NeedSpawn = true;
-        _ui.UpdateCoins(_monster.GetReward());
+        StartCoroutine(_ui.UpdateCoins(_monster.GetReward()));
         GameObject.Destroy(_monster.gameObject);
     }
 }
