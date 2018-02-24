@@ -2014,7 +2014,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefabs:
   - {fileID: 1774117397416114, guid: e3b9f6093c334eb4fb7c8679ca3c5166, type: 2}
-  ConstantDamage: 100
+  ConstantDamage: 10
   NeedSpawn: 1
   SpawnDelay: 2
 --- !u!4 &1864607964
