@@ -16,12 +16,23 @@ public class UIHandler : MonoBehaviour
     public IEnumerator UpdateCoins(int coinChange)
     {
         int currentCoin = Int32.Parse(_coinText.text);
-        
+
         for (int i = 1; i <= 50; i++)
         {
             int newCoin = currentCoin + coinChange * i / 50;
             _coinText.text = newCoin.ToString();
             yield return new WaitForSeconds(0.01F);
         }
+    }
+
+    public bool HasEnoughCoin(int amount)
+    {
+        int coin = Int32.Parse(_coinText.text);
+        if (coin >= amount)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
