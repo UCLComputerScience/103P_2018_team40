@@ -5,18 +5,15 @@ using UnityEngine;
 public class MonsterManager : MonoBehaviour
 {
     public GameObject[] Prefabs;
-    public int ConstantDamage = 10;
     public bool NeedSpawn = true;
     public int SpawnDelay = 3;
 
-    //private ObjectPool op;
     private Monster _monster;
-    private UIHandler _ui;
+    private GameManager _gm;
 
     private void Awake()
     {
-        //op = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
-        _ui = GameObject.Find("Canvas").GetComponent<UIHandler>();
+        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -30,7 +27,7 @@ public class MonsterManager : MonoBehaviour
 
     public int GetDamage()
     {
-        return ConstantDamage; // + Hitbar.GetDamage()
+        return _gm.GetDamage();
     }
 
     private IEnumerator SpawnEnemy()
@@ -50,7 +47,7 @@ public class MonsterManager : MonoBehaviour
     public void KillMonster()
     {
         NeedSpawn = true;
-        StartCoroutine(_ui.UpdateCoins(_monster.GetReward()));
+        _gm.ChangeCoinNum(_monster.GetReward());
         GameObject.Destroy(_monster.gameObject);
     }
 }

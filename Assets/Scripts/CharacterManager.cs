@@ -5,24 +5,40 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    private MonsterManager _mm;
-    private UIHandler _ui;
+    public int TotalConstantDmg = 0;
+    public List<GameObject> Characters;
+
+    private GameManager _gm;
 
     // Use this for initialization
     void Awake()
     {
-        _mm = GameObject.Find("MonsterManager").GetComponent<MonsterManager>();
-        _ui = GameObject.Find("Canvas").GetComponent<UIHandler>();
+        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    private void Start()
+    {
+        foreach (var ch in Characters)
+        {
+            TotalConstantDmg += ch.GetComponent<Character>().Dps;
+        }
+
+        Debug.Log(TotalConstantDmg);
     }
 
     public bool TrySpendingCoins(int amount)
     {
-        if (!_ui.HasEnoughCoin(amount))
+        if (!_gm.HasEnoughCoin(amount))
         {
             return false;
         }
 
-        StartCoroutine(_ui.UpdateCoins(-amount));
+        _gm.ChangeCoinNum(-amount);
         return true;
+    }
+
+    public void IncreaseConstantDmg(int change)
+    {
+        TotalConstantDmg += change;
     }
 }

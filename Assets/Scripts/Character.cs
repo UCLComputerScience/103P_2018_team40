@@ -39,6 +39,7 @@ public class Character : MonoBehaviour
         Lv += 1;
         Dps += DpsGrow;
         cost += CostGrow;
+        _cm.IncreaseConstantDmg(DpsGrow);
 
         _lvText.text = "Current Lv: " + Lv;
         _dpsText.text = "Current DPS: " + Dps;
