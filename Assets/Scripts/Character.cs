@@ -28,7 +28,6 @@ public class Character : MonoBehaviour
 
     public void Upgrade()
     {
-        Debug.Log(_costText.text);
         int cost = Int32.Parse(_costText.text);
         var ifEnough = _cm.TrySpendingCoins(cost);
         if (!ifEnough)
