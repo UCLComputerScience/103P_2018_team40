@@ -10,33 +10,39 @@ public class Monster : MonoBehaviour
     public int RewardLowerBound;
 
     private MonsterManager _mm;
+    private Animator _animator;
     private GameObject _hb;
-    private int TotalHealth = 1;
-    private int CurrentHealth = 1;
+    private int _totalHealth = 1;
+    private int _currentHealth = 1;
 
     private void Awake()
     {
         _mm = GameObject.Find("MonsterManager").GetComponent<MonsterManager>();
         _hb = GameObject.Find("HealthbarFrame/Healthbar");
+        _animator = GetComponent<Animator>();
     }
 
 
     public void SetTotalHealth(int th)
     {
-        TotalHealth = th;
-        CurrentHealth = th;
+        _totalHealth = th;
+        _currentHealth = th;
     }
 
     private void FixedUpdate()
     {
-        CurrentHealth -= _mm.GetDamage();
-        if (CurrentHealth <= 0)
+        _currentHealth -= _mm.GetDamage();
+        if (_currentHealth <= 0)
         {
-            CurrentHealth = 0;
-            _mm.KillMonster();
+            _currentHealth = 0;
+            _animator.SetBool("Alive", false);
+        }
+        else
+        {
+            _animator.SetBool("Alive", true);
         }
 
-        SetHealth((float) CurrentHealth / TotalHealth);
+        SetHealth((float) _currentHealth / _totalHealth);
     }
 
     private void SetHealth(float percentage)
@@ -48,5 +54,10 @@ public class Monster : MonoBehaviour
     public int GetReward()
     {
         return Random.Range(RewardLowerBound, RewardUpperBound);
+    }
+
+    public void Die()
+    {
+        _mm.KillMonster();
     }
 }
