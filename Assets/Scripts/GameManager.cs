@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public int HitbarDmgBuffer;
     private MonsterManager _mm;
     private UIManager _ui;
     private CharacterManager _cm;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
         _mm = GameObject.Find("MonsterManager").GetComponent<MonsterManager>();
         _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
         _cm = GameObject.Find("Canvas/Upgrade/CharacterManager").GetComponent<CharacterManager>();
+        HitbarDmgBuffer = 0;
     }
 
     public bool HasEnoughCoin(int amount)
@@ -37,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     public int GetDamage()
     {
-        return _cm.TotalConstantDmg; // + Hitbar damage
+        var dmg = _cm.TotalConstantDmg + HitbarDmgBuffer;
+        HitbarDmgBuffer = 0;
+        return dmg; 
     }
 }
