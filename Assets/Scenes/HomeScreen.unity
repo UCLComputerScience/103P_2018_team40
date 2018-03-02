@@ -2813,22 +2813,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 212828256923006462, guid: e3b9f6093c334eb4fb7c8679ca3c5166,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: c77ea72714f9be14eb9b6633d3496783,
-        type: 3}
-    - target: {fileID: 212828256923006462, guid: e3b9f6093c334eb4fb7c8679ca3c5166,
-        type: 2}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 95268905825116546, guid: e3b9f6093c334eb4fb7c8679ca3c5166,
-        type: 2}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 5caf7023ec8ba35488674a8fb14517c8, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3b9f6093c334eb4fb7c8679ca3c5166, type: 2}
   m_IsPrefabParent: 0
