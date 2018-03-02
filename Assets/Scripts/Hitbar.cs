@@ -38,10 +38,19 @@ public class Hitbar : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKey(KeyCode.Space))
         {
-            StartCoroutine(StopPointer());
+            DisplayPointer();
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                StartCoroutine(StopPointer());
+            }
         }
+        else
+        {
+            HidePointer();
+        }
+        
     }
 
     // Update is called once per frame
@@ -52,9 +61,9 @@ public class Hitbar : MonoBehaviour
             if (_movingDirction)
             {
                 _slider.value += MovingSpeed;
-                var pos = Pointer.transform.localPosition;
-                pos.x += (float) 2 * -Left_X_Pos_Pointer / (1 / MovingSpeed);
-                Pointer.transform.localPosition = pos;
+//                var pos = Pointer.transform.localPosition;
+//                pos.x += (float) 2 * -Left_X_Pos_Pointer / (1 / MovingSpeed);
+//                Pointer.transform.localPosition = pos;
                 if (_slider.value == 1)
                 {
                     _movingDirction = false;
@@ -63,9 +72,9 @@ public class Hitbar : MonoBehaviour
             else
             {
                 _slider.value -= MovingSpeed;
-                var pos = Pointer.transform.localPosition;
-                pos.x -= (float) 2 * -Left_X_Pos_Pointer / (1 / MovingSpeed);
-                Pointer.transform.localPosition = pos;
+//                var pos = Pointer.transform.localPosition;
+//                pos.x -= (float) 2 * -Left_X_Pos_Pointer / (1 / MovingSpeed);
+//                Pointer.transform.localPosition = pos;
                 if (_slider.value == 0)
                 {
                     _movingDirction = true;
@@ -74,6 +83,20 @@ public class Hitbar : MonoBehaviour
         }
     }
 
+    private void DisplayPointer()
+    {
+        var pos = Pointer.transform.localPosition;
+        pos.x = (float) 2 * -Left_X_Pos_Pointer  * _slider.value + Left_X_Pos_Pointer;
+        //Debug.Log(2 * -Left_X_Pos_Pointer  * _slider.value + Left_X_Pos_Pointer);
+        Pointer.transform.localPosition = pos;
+        Pointer.GetComponent<Renderer>().enabled = true;
+    }
+
+    private void HidePointer()
+    {
+        Pointer.GetComponent<Renderer>().enabled = false;
+    }
+    
     private IEnumerator StopPointer()
     {
         pausing = true;
