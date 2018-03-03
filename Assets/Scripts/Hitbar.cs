@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class Hitbar : MonoBehaviour
 {
     public float MovingSpeed;
-    public int HitbarDmg;
+    public int BaseDamage;
+    public int DmgAdds;
     public Vector2 CBRange;
     public Vector2 HBRange;
     public GameObject CriticalBlock;
@@ -29,6 +30,7 @@ public class Hitbar : MonoBehaviour
     {
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _slider = gameObject.GetComponent<Slider>();
+        DmgAdds = 0;
     }
 
     private void Start()
@@ -102,11 +104,11 @@ public class Hitbar : MonoBehaviour
         pausing = true;
         if (CBValueRange.x < _slider.value && _slider.value < CBValueRange.y)
         {
-            _gm.HitbarDmgBuffer = HitbarDmg * 2;
+            _gm.DmgBuffer = (BaseDamage + DmgAdds) * 2;
         }
         else if (HBValueRange.x < _slider.value && _slider.value < HBValueRange.y)
         {
-            _gm.HitbarDmgBuffer = HitbarDmg;
+            _gm.DmgBuffer = BaseDamage + DmgAdds;
         }
 
         yield return new WaitForSeconds(0.5f);

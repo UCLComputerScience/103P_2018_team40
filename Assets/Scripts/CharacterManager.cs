@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    public int TotalConstantDmg = 0;
     public List<GameObject> Characters;
-
     private GameManager _gm;
 
     // Use this for initialization
@@ -18,12 +16,6 @@ public class CharacterManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (var ch in Characters)
-        {
-            TotalConstantDmg += ch.GetComponent<Character>().Dps;
-        }
-
-        Debug.Log(TotalConstantDmg);
     }
 
     public bool TrySpendingCoins(int amount)
@@ -37,8 +29,4 @@ public class CharacterManager : MonoBehaviour
         return true;
     }
 
-    public void IncreaseConstantDmg(int change)
-    {
-        TotalConstantDmg += change;
-    }
 }
