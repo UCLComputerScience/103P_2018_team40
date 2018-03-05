@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class PowerHitbarDmg : Power
+public class PowerIncreaseGreenBlock : Power
 {
     private Hitbar _hb;
 
@@ -16,13 +14,12 @@ public class PowerHitbarDmg : Power
 
     private void Start()
     {
-        _hb.DmgAdds =(int) _character.Power;
+        _hb.HBRangeMultiplier = 1 + _character.Power;
+        Debug.Log("HBRangeMultiplier is " + _hb.HBRangeMultiplier);
     }
 
     public override void Upgrade()
     {
-        _hb.DmgAdds =(int) _character.Power;
+        _hb.HBRangeMultiplier = 1 + _character.Power;
     }
-
-
 }

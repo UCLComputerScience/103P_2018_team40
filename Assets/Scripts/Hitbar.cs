@@ -10,6 +10,7 @@ public class Hitbar : MonoBehaviour
     public int DmgAdds;
     public Vector2 CBRange;
     public Vector2 HBRange;
+    public float HBRangeMultiplier;
     public GameObject CriticalBlock;
     public GameObject HitBlock;
     public GameObject Pointer;
@@ -31,6 +32,7 @@ public class Hitbar : MonoBehaviour
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _slider = gameObject.GetComponent<Slider>();
         DmgAdds = 0;
+        HBRangeMultiplier = 1;
     }
 
     private void Start()
@@ -133,7 +135,7 @@ public class Hitbar : MonoBehaviour
         CriticalBlock.transform.localPosition = pos;
         CriticalBlock.transform.localScale = scale;
 
-        range = Random.Range(HBRange.x, HBRange.y) / 100.0f;
+        range = Random.Range(HBRange.x * HBRangeMultiplier, HBRange.y * HBRangeMultiplier) / 100.0f;
         while (true)
         {
             xValue = Random.value * (1 - range);

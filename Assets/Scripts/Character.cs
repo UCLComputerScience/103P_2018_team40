@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-    public int Power;
+    public float Power;
     public int Lv;
-    public int PowerGrow;
+    public float PowerGrow;
     public int CostGrow;
     private Text _lvText;
     private Text _powerText;
@@ -43,6 +43,7 @@ public class Character : MonoBehaviour
 
     public void Upgrade()
     {
+        Debug.Log("Upgrading");
         int cost = Int32.Parse(_costText.text);
         var ifEnough = _cm.TrySpendingCoins(cost);
         if (!ifEnough)
