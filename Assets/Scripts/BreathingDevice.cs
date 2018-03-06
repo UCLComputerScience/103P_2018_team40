@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Fizzyo
 {
-    public class FizzyoDevice : MonoBehaviour
+    public class BreathingDevice : MonoBehaviour
     {
 
         void Start()
@@ -15,11 +15,11 @@ namespace Fizzyo
             var inputState = new InputState(this);
             Services.AddService(typeof(InputState), inputState);
 
-            //Initialise the FizzyoDevice class
-            var fizzyo = new FizzyoDevice(this);
+            //Initialise the BreathingDevice class
+            var fizzyo = new BreathingDevice(this);
             fizzyo.useRecordedData = true; // Change this value to use actual values instead of recorded data
-            Services.AddService(typeof(FizzyoDevice), fizzyo);
-            var fizzyoDevice = (FizzyoDevice)game.Services.GetService(typeof(FizzyoDevice));
+            Services.AddService(typeof(BreathingDevice), fizzyo);
+            var fizzyoDevice = (BreathingDevice)game.Services.GetService(typeof(BreathingDevice));
 
             //create instance of breath analyser class
             //BreathAnalyser breathAnalyser = new BreathAnalyser(MaxPressure, MaxBreathLength);
@@ -36,7 +36,7 @@ namespace Fizzyo
         {
 
             //2 possible functions for button on breathing device
-            bool buttonPresed = FizzyoDevice.ButtonDown();
+            bool buttonPresed = BreathingDevice.ButtonDown();
             //bool buttonPressed = Fizzyo.FizzyoDevice.Instance().ButtonDown();
             bool isbuttonPresed = Keyboard.GetState().IsKeyDown(Keys.A);
 
@@ -59,7 +59,7 @@ namespace Fizzyo
 
 
             //2 different ways to record pressure
-            float pressure = FizzyoDevice.Pressure();
+            float pressure = BreathingDevice.Pressure();
             //float pressure = Fizzyo.FizzyoDevice.Instance().Pressure();
             if (pressure == 0)
             {
@@ -76,12 +76,12 @@ namespace Fizzyo
 
         public bool isButtonPressed()
         {
-            return FizzyoDevice.ButtonDown();
+            return BreathingDevice.ButtonDown();
         }
 
         public bool isBlow()
         {
-            float pressure = FizzyoDevice.Pressure();
+            float pressure = BreathingDevice.Pressure();
             if (pressure == 0)
             {
                 return false;
@@ -89,7 +89,7 @@ namespace Fizzyo
             return true;
         }
 
-        public bool isGoodBreath()
+        public void isGoodBreath()
         {
 
         }
