@@ -6,7 +6,6 @@ public class MonsterManager : MonoBehaviour
 {
     public GameObject[] Prefabs;
     public bool NeedSpawn = true;
-    public int SpawnDelay = 3;
 
     private Monster _monster;
     private GameManager _gm;
@@ -16,30 +15,26 @@ public class MonsterManager : MonoBehaviour
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (NeedSpawn)
         {
-            StartCoroutine(SpawnEnemy());
+            SpawnEnemy();
         }
     }
 
-    public int GetDamage()
+    public float GetDamage()
     {
         return _gm.GetDamage();
     }
 
-    private IEnumerator SpawnEnemy()
+    private void SpawnEnemy()
     {
-        NeedSpawn = false;
-        yield return new WaitForSeconds(SpawnDelay);
-
         var go = GameObject.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
         go.transform.position = transform.position;
         go.transform.parent = transform;
         _monster = go.GetComponent<Monster>();
-        _monster.SetTotalHealth(Random.Range(1000, 4000));
+        NeedSpawn = false;
         //var newTransform = transform;
         //Instantiate(Prefabs[Random.Range(0, Prefabs.Length)], newTransform.position, Quaternion.identity);
     }

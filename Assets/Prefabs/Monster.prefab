@@ -70,8 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b9d886eeab76141b6315462254acec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RewardUpperBound: 100
-  RewardLowerBound: 200
+  RewardRange: {x: 200, y: 400}
+  HealthRange: {x: 2000, y: 3000}
 --- !u!212 &212828256923006462
 SpriteRenderer:
   m_ObjectHideFlags: 1

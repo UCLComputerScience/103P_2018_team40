@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int DmgBuffer;
-    public int HitbarDmgUpgrade;
+    public float DmgBuffer;
+    public int CoinNum;
+    
     private MonsterManager _mm;
     private UIManager _ui;
     private CharacterManager _cm;
-
+    
+    
     // Use this for initialization
     void Awake()
     {
@@ -19,27 +21,25 @@ public class GameManager : MonoBehaviour
         _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
         _cm = GameObject.Find("Canvas/Upgrade/CharacterManager").GetComponent<CharacterManager>();
         DmgBuffer = 0;
-        HitbarDmgUpgrade = 0;
     }
 
     public bool HasEnoughCoin(int amount)
     {
-        int coin = Int32.Parse(_ui.CoinText.text);
-        if (coin >= amount)
+        if (CoinNum >= amount)
         {
             return true;
         }
-
         return false;
     }
 
     public void ChangeCoinNum(int amount)
     {
+        CoinNum += amount;
         StartCoroutine(_ui.UpdateCoins(amount));
     }
 
 
-    public int GetDamage()
+    public float GetDamage()
     {
         var dmg = DmgBuffer;
         DmgBuffer = 0;

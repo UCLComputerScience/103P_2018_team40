@@ -6,14 +6,14 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     public const float FullHealthScale = 1.301246F;
-    public int RewardUpperBound;
-    public int RewardLowerBound;
+    public Vector2 RewardRange;
+    public Vector2 HealthRange;
 
     private MonsterManager _mm;
     private Animator _animator;
     private GameObject _hb;
-    private int _totalHealth = 1;
-    private int _currentHealth = 1;
+    private float _totalHealth = 1f;
+    private float _currentHealth = 1f;
 
     private void Awake()
     {
@@ -22,16 +22,17 @@ public class Monster : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-
-    public void SetTotalHealth(int th)
+    private void Start()
     {
-        _totalHealth = th;
-        _currentHealth = th;
+        _totalHealth = Random.Range((int) HealthRange.x, (int) HealthRange.y);
+        _currentHealth = _totalHealth;
+        SetHealth(1f);
     }
 
     private void FixedUpdate()
     {
         _currentHealth -= _mm.GetDamage();
+        // change animation according to monster health status
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;
@@ -42,7 +43,7 @@ public class Monster : MonoBehaviour
             _animator.SetBool("Alive", true);
         }
 
-        SetHealth((float) _currentHealth / _totalHealth);
+        SetHealth(_currentHealth / _totalHealth);
     }
 
     private void SetHealth(float percentage)
@@ -53,7 +54,7 @@ public class Monster : MonoBehaviour
 
     public int GetReward()
     {
-        return Random.Range(RewardLowerBound, RewardUpperBound);
+        return Random.Range((int) RewardRange.x, (int) RewardRange.y);
     }
 
     public void Die()

@@ -531,7 +531,7 @@ MonoBehaviour:
   Power: 0
   Lv: 1
   PowerGrow: 100
-  CostGrow: 100
+  CostGrow: 200
 --- !u!114 &161945956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2018,8 +2018,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Power: 0
   Lv: 1
-  PowerGrow: 1
-  CostGrow: 50
+  PowerGrow: 0.05
+  CostGrow: 100
 --- !u!114 &510385836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2944,8 +2944,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Power: 0
   Lv: 1
-  PowerGrow: 0.25
-  CostGrow: 200
+  PowerGrow: 0.05
+  CostGrow: 400
 --- !u!114 &732375879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4069,7 +4069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea40c491405c364fbd7c7b9890138ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoinText: {fileID: 0}
+  LoopNum: 25
 --- !u!1 &935598551
 GameObject:
   m_ObjectHideFlags: 0
@@ -4317,7 +4317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DmgBuffer: 0
-  HitbarDmgUpgrade: 0
+  CoinNum: 99999
 --- !u!4 &941057084
 Transform:
   m_ObjectHideFlags: 0
@@ -7549,7 +7549,6 @@ MonoBehaviour:
   Prefabs:
   - {fileID: 1774117397416114, guid: e3b9f6093c334eb4fb7c8679ca3c5166, type: 2}
   NeedSpawn: 1
-  SpawnDelay: 0
 --- !u!4 &1864607964
 Transform:
   m_ObjectHideFlags: 0

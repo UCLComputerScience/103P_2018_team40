@@ -14,10 +14,6 @@ public class CharacterManager : MonoBehaviour
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    private void Start()
-    {
-    }
-
     public bool TrySpendingCoins(int amount)
     {
         if (!_gm.HasEnoughCoin(amount))
@@ -28,5 +24,4 @@ public class CharacterManager : MonoBehaviour
         _gm.ChangeCoinNum(-amount);
         return true;
     }
-
 }

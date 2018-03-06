@@ -10,6 +10,6 @@ public class PowerAutoDmg : Power
 
 	private void FixedUpdate()
 	{
-		_gm.DmgBuffer += (int)_character.Power;
+		_gm.DmgBuffer += _character.Power;
 	}
 }

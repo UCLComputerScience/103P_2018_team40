@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Hitbar : MonoBehaviour
 {
     public float MovingSpeed;
-    public int BaseDamage;
-    public int DmgAdds;
+    public float BaseDamage;
+    public float DmgAdds;
     public Vector2 CBRange;
     public Vector2 HBRange;
     public float HBRangeMultiplier;
@@ -18,10 +18,10 @@ public class Hitbar : MonoBehaviour
     private Slider _slider;
     private GameManager _gm;
     private bool _movingDirction = true; // ture -> towards right, false -> towards left
-    private bool pausing = false;
-    private const int Max_Scale = 438;
-    private const int Left_X_Pos = -220;
-    private const int Left_X_Pos_Pointer = -215;
+    private bool _pausing = false;
+    private const int MaxScale = 438;
+    private const int LeftXPos = -220;
+    private const int LeftXPosPointer = -215;
     private Vector2 CBValueRange;
     private Vector2 HBValueRange;
 
@@ -60,14 +60,11 @@ public class Hitbar : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (!pausing)
+        if (!_pausing)
         {
             if (_movingDirction)
             {
                 _slider.value += MovingSpeed;
-//                var pos = Pointer.transform.localPosition;
-//                pos.x += (float) 2 * -Left_X_Pos_Pointer / (1 / MovingSpeed);
-//                Pointer.transform.localPosition = pos;
                 if (_slider.value == 1)
                 {
                     _movingDirction = false;
@@ -76,9 +73,6 @@ public class Hitbar : MonoBehaviour
             else
             {
                 _slider.value -= MovingSpeed;
-//                var pos = Pointer.transform.localPosition;
-//                pos.x -= (float) 2 * -Left_X_Pos_Pointer / (1 / MovingSpeed);
-//                Pointer.transform.localPosition = pos;
                 if (_slider.value == 0)
                 {
                     _movingDirction = true;
@@ -90,8 +84,7 @@ public class Hitbar : MonoBehaviour
     private void DisplayPointer()
     {
         var pos = Pointer.transform.localPosition;
-        pos.x = (float) 2 * -Left_X_Pos_Pointer  * _slider.value + Left_X_Pos_Pointer;
-        //Debug.Log(2 * -Left_X_Pos_Pointer  * _slider.value + Left_X_Pos_Pointer);
+        pos.x = (float) 2 * -LeftXPosPointer  * _slider.value + LeftXPosPointer;
         Pointer.transform.localPosition = pos;
         Pointer.GetComponent<Renderer>().enabled = true;
     }
@@ -103,7 +96,7 @@ public class Hitbar : MonoBehaviour
     
     private IEnumerator StopPointer()
     {
-        pausing = true;
+        _pausing = true;
         if (CBValueRange.x < _slider.value && _slider.value < CBValueRange.y)
         {
             _gm.DmgBuffer = (BaseDamage + DmgAdds) * 2;
@@ -114,19 +107,20 @@ public class Hitbar : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        pausing = false;
+        _pausing = false;
         GenerateBlocks();
     }
 
     private void GenerateBlocks()
     {
+        // calc range for critical block
         float range = Random.Range(CBRange.x, CBRange.y) / 100.0f;
         float xValue = Random.value * (1 - range);
         CBValueRange.x = xValue;
         CBValueRange.y = xValue + range;
 
-        int xScale = (int) (range * Max_Scale);
-        int xPos = (int) (xValue * Max_Scale + Left_X_Pos);
+        int xScale = (int) (range * MaxScale);
+        int xPos = (int) (xValue * MaxScale + LeftXPos);
 
         var pos = CriticalBlock.transform.localPosition;
         var scale = CriticalBlock.transform.localScale;
@@ -134,21 +128,22 @@ public class Hitbar : MonoBehaviour
         scale.x = xScale;
         CriticalBlock.transform.localPosition = pos;
         CriticalBlock.transform.localScale = scale;
-
+        
+        // calc range for hitblock
         range = Random.Range(HBRange.x * HBRangeMultiplier, HBRange.y * HBRangeMultiplier) / 100.0f;
-        while (true)
+        if (range + CBRange.y / 200.0f >= 0.5f) // range too large
+        {
+            range = 0.5f - CBRange.y / 200.0f;
+        }
+        do
         {
             xValue = Random.value * (1 - range);
             HBValueRange.x = xValue;
             HBValueRange.y = xValue + range;
-            if (!IfOverlap())
-            {
-                break;
-            }
-        }
-
-        xScale = (int) (range * Max_Scale);
-        xPos = (int) (xValue * Max_Scale + Left_X_Pos);
+        } while (IfOverlap()); // prevent green block overlapping with yellow one
+        
+        xScale = (int) (range * MaxScale);
+        xPos = (int) (xValue * MaxScale + LeftXPos);
 
         pos = HitBlock.transform.localPosition;
         scale = HitBlock.transform.localScale;
