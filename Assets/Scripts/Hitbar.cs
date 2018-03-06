@@ -14,6 +14,7 @@ public class Hitbar : MonoBehaviour
     public GameObject CriticalBlock;
     public GameObject HitBlock;
     public GameObject Pointer;
+    public bool GoodBreath;
 
     private Slider _slider;
     private GameManager _gm;
@@ -33,6 +34,7 @@ public class Hitbar : MonoBehaviour
         _slider = gameObject.GetComponent<Slider>();
         DmgAdds = 0;
         HBRangeMultiplier = 1;
+        GoodBreath = false;
     }
 
     private void Start()
