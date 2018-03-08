@@ -30,7 +30,6 @@ public class Character : MonoBehaviour
             if (component is Power)
             {
                 _powerComponents.Add(component as Power);
-                Debug.Log("Found " + component.name);
             }
         }
     }
@@ -43,7 +42,6 @@ public class Character : MonoBehaviour
 
     public void Upgrade()
     {
-        Debug.Log("Upgrading");
         int cost = Int32.Parse(_costText.text);
         var ifEnough = _cm.TrySpendingCoins(cost);
         if (!ifEnough)
