@@ -15,7 +15,6 @@ public class PowerIncreaseGreenBlock : Power
     private void Start()
     {
         _hb.HBRangeMultiplier = 1 + _character.Power;
-        Debug.Log("HBRangeMultiplier is " + _hb.HBRangeMultiplier);
     }
 
     public override void Upgrade()
