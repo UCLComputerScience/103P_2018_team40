@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -41,12 +41,12 @@ namespace Fizzyo
             bool isbuttonPresed = Keyboard.GetState().IsKeyDown(Keys.A);
 
 
-            if (buttonPresed == true && /*pointer on green section of hitbar*/)
+            if (buttonPresed == true && /*pointer on green section of hitbar)
             {
                 //normal damage
             }
 
-            if (buttonPresed == true && /*pointer on yellow section of hitbar*/)
+            if (buttonPresed == true && /*pointer on yellow section of hitbar)
             {
                 //critical damage
             }
@@ -95,4 +95,4 @@ namespace Fizzyo
         }
     }
 }
-
+*/
