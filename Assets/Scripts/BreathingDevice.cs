@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+//using Microsoft.Xna.Framework.Input;
 
 namespace Fizzyo
 {
@@ -17,16 +18,16 @@ namespace Fizzyo
 
             //Initialise the BreathingDevice class
             var fizzyo = new BreathingDevice(this);
-            fizzyo.useRecordedData = true; // Change this value to use actual values instead of recorded data
+            //fizzyo.useRecordedData = true; // Change this value to use actual values instead of recorded data
             Services.AddService(typeof(BreathingDevice), fizzyo);
             var fizzyoDevice = (BreathingDevice)game.Services.GetService(typeof(BreathingDevice));
 
             //create instance of breath analyser class
             //BreathAnalyser breathAnalyser = new BreathAnalyser(MaxPressure, MaxBreathLength);
-            BreathAnalyser breathAnalyser = new BreathAnalyser(3, 5);
+            //BreathAnalyser breathAnalyser = new BreathAnalyser(3, 5);
             BreathRecogniser breathRecogniser = new BreathRecogniser(3, 5);
 
-            breathAnalyser.ExhalationComplete += ExhalationCompleteEventHandler;
+            breathRecogniser.ExhalationComplete += ExhalationCompleteEventHandler;
 
 
         }
@@ -37,25 +38,25 @@ namespace Fizzyo
 
             //2 possible functions for button on breathing device
             bool buttonPresed = BreathingDevice.ButtonDown();
-            //bool buttonPressed = Fizzyo.FizzyoDevice.Instance().ButtonDown();
-            bool isbuttonPresed = Keyboard.GetState().IsKeyDown(Keys.A);
+            bool buttonPressed = Fizzyo.BreathingDevice.Instance().ButtonDown();
+            //bool isbuttonPresed = Keyboard.GetState().IsKeyDown(Keys.A);
 
 
-            if (buttonPresed == true && /*pointer on green section of hitbar*/)
+            /*if(buttonPresed == true && pointer on green section of hitbar)
             {
                 //normal damage
-            }
+            }*/
 
-            if (buttonPresed == true && /*pointer on yellow section of hitbar*/)
+            /*if (buttonPresed == true && pointer on yellow section of hitbar)
             {
                 //critical damage
-            }
+            }*/
 
             //isBreathGood() function is a part of breath analyser class
-            if (isBreathGood() == true)
+            /*if (isBreathGood() == true)
             {
                 //rewards
-            }
+            }*/
 
 
             //2 different ways to record pressure
