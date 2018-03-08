@@ -959,8 +959,8 @@ MonoBehaviour:
   MovingSpeed: 0.01
   BaseDamage: 100
   DmgAdds: 0
-  CBRange: {x: 10, y: 15}
-  HBRange: {x: 30, y: 40}
+  CBRange: {x: 5, y: 8}
+  HBRange: {x: 15, y: 25}
   HBRangeMultiplier: 0
   CriticalBlock: {fileID: 1578317135}
   HitBlock: {fileID: 935598551}
