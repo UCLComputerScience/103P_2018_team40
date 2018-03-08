@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public int LoopNum;
-    
+
     private Text _coinText;
     private GameManager _gm;
 
@@ -27,9 +27,11 @@ public class UIManager : MonoBehaviour
 
         for (int i = 1; i <= LoopNum; i++)
         {
-            int newCoin = _gm.CoinNum + coinChange * i / LoopNum;
+            int newCoin = _gm.CoinNum - coinChange * (LoopNum - i) / LoopNum;
             _coinText.text = newCoin.ToString();
             yield return new WaitForSeconds(0.01F);
         }
+        int finalCoinNum = _gm.CoinNum;
+        _coinText.text = finalCoinNum.ToString();
     }
 }
