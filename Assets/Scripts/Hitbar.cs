@@ -47,7 +47,7 @@ public class Hitbar : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             DisplayPointer();
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) && !_pausing)
             {
                 StartCoroutine(StopPointer());
             }
