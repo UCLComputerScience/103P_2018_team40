@@ -6,23 +6,24 @@ using UnityEngine.UI;
 public class DamageTextEffects : MonoBehaviour
 {
     public float FadeTime;
+    public float MoveUpTime;
 
     // Use this for initialization
     void Start()
     {
         StartCoroutine(Fade());
         StartCoroutine(MoveUp());
-        StartCoroutine(Destory());
     }
 
     //https://answers.unity.com/questions/225438/slowly-fades-from-opaque-to-alpha.html
     private IEnumerator Fade()
     {
+        yield return new WaitForSeconds(MoveUpTime - FadeTime);
         Color colour = gameObject.GetComponent<Text>().color;
         float currentA = colour.a;
         for (float t = 0f; t < FadeTime; t += Time.deltaTime)
         {
-            colour.a = Mathf.Lerp(currentA, 0, t);
+            colour.a = Mathf.Lerp(currentA, 0, t / FadeTime);
             gameObject.GetComponent<Text>().color = colour;
             yield return null;
         }
@@ -32,17 +33,13 @@ public class DamageTextEffects : MonoBehaviour
     {
         Vector3 pos = transform.localPosition;
         float currentY = pos.y;
-        for (float t = 0f; t < FadeTime; t += Time.deltaTime)
+        for (float t = 0f; t < MoveUpTime; t += Time.deltaTime)
         {
-            pos.y = Mathf.Lerp(currentY, 40, t);
+            pos.y = Mathf.Lerp(currentY, 40, t / MoveUpTime);
             transform.localPosition = pos;
             yield return null;
         }
-    }
 
-    private IEnumerator Destory()
-    {
-        yield return new WaitForSeconds(FadeTime);
         GameObject.Destroy(gameObject);
     }
 }
