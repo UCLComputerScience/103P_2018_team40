@@ -31,8 +31,8 @@ public class MonsterManager : MonoBehaviour
     private void SpawnEnemy()
     {
         var go = GameObject.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
-        go.transform.position = transform.position;
-        go.transform.parent = transform;
+//        go.transform.position = transform.position;
+        go.transform.SetParent(transform,false);
         _monster = go.GetComponent<Monster>();
         NeedSpawn = false;
         //var newTransform = transform;
