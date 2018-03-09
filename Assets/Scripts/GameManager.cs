@@ -8,18 +8,19 @@ public class GameManager : MonoBehaviour
 {
     public float DmgBuffer;
     public int CoinNum;
-    
+
     private MonsterManager _mm;
     private UIManager _ui;
     private CharacterManager _cm;
-    
-    
+    private DamageIndicator _di;
+
     // Use this for initialization
     void Awake()
     {
         _mm = GameObject.Find("MonsterManager").GetComponent<MonsterManager>();
         _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
         _cm = GameObject.Find("Canvas/Upgrade/CharacterManager").GetComponent<CharacterManager>();
+        _di = GameObject.Find("Canvas/DamageIndicator").GetComponent<DamageIndicator>();
         DmgBuffer = 0;
     }
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
         {
             return true;
         }
+
         return false;
     }
 
@@ -43,6 +45,12 @@ public class GameManager : MonoBehaviour
     {
         var dmg = DmgBuffer;
         DmgBuffer = 0;
-        return dmg; 
+        return dmg;
+    }
+
+    public void Hit(float dmg)
+    {
+        DmgBuffer += dmg;
+        _di.ShowDmg(dmg);
     }
 }

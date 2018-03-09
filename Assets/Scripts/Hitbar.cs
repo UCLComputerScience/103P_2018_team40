@@ -56,7 +56,6 @@ public class Hitbar : MonoBehaviour
         {
             HidePointer();
         }
-        
     }
 
     // Update is called once per frame
@@ -86,7 +85,7 @@ public class Hitbar : MonoBehaviour
     private void DisplayPointer()
     {
         var pos = Pointer.transform.localPosition;
-        pos.x = (float) 2 * -LeftXPosPointer  * _slider.value + LeftXPosPointer;
+        pos.x = (float) 2 * -LeftXPosPointer * _slider.value + LeftXPosPointer;
         Pointer.transform.localPosition = pos;
         Pointer.GetComponent<Renderer>().enabled = true;
     }
@@ -95,17 +94,17 @@ public class Hitbar : MonoBehaviour
     {
         Pointer.GetComponent<Renderer>().enabled = false;
     }
-    
+
     private IEnumerator StopPointer()
     {
         _pausing = true;
         if (CBValueRange.x < _slider.value && _slider.value < CBValueRange.y)
         {
-            _gm.DmgBuffer = (BaseDamage + DmgAdds) * 2;
+            _gm.Hit((BaseDamage + DmgAdds) * 2);
         }
         else if (HBValueRange.x < _slider.value && _slider.value < HBValueRange.y)
         {
-            _gm.DmgBuffer = BaseDamage + DmgAdds;
+            _gm.Hit(BaseDamage + DmgAdds);
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -130,20 +129,21 @@ public class Hitbar : MonoBehaviour
         scale.x = xScale;
         CriticalBlock.transform.localPosition = pos;
         CriticalBlock.transform.localScale = scale;
-        
+
         // calc range for hitblock
         range = Random.Range(HBRange.x * HBRangeMultiplier, HBRange.y * HBRangeMultiplier) / 100.0f;
         if (range + CBRange.y / 200.0f >= 0.5f) // range too large
         {
             range = 0.5f - CBRange.y / 200.0f;
         }
+
         do
         {
             xValue = Random.value * (1 - range);
             HBValueRange.x = xValue;
             HBValueRange.y = xValue + range;
         } while (IfOverlap()); // prevent green block overlapping with yellow one
-        
+
         xScale = (int) (range * MaxScale);
         xPos = (int) (xValue * MaxScale + LeftXPos);
 
