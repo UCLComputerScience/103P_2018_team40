@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public float DmgBuffer;
     public int CoinNum;
+    public double Score;
 
     private MonsterManager _mm;
     private UIManager _ui;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         _cm = GameObject.Find("Canvas/Upgrade/CharacterManager").GetComponent<CharacterManager>();
         _di = GameObject.Find("Canvas/DamageIndicator").GetComponent<DamageIndicator>();
         DmgBuffer = 0;
+        Score = 0;
     }
 
     public bool HasEnoughCoin(int amount)
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
     public void ChangeCoinNum(int amount)
     {
         CoinNum += amount;
+        AddScore(Math.Abs(amount));
         StartCoroutine(_ui.UpdateCoins(amount));
     }
 
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         var dmg = DmgBuffer;
         DmgBuffer = 0;
+        AddScore(dmg);
         return dmg;
     }
 
@@ -52,5 +56,11 @@ public class GameManager : MonoBehaviour
     {
         DmgBuffer += dmg;
         _di.ShowDmg(dmg);
+    }
+
+    public void AddScore(double amount)
+    {
+        Score += amount;
+        _ui.UpdateScore(Score);
     }
 }
