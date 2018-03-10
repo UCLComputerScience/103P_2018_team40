@@ -24,8 +24,8 @@ public class Monster : MonoBehaviour
 
     private void Start()
     {
-        _totalHealth = Random.Range((int) (HealthRange.x * (_mm.MonsterLv * _mm.HealthGrowFactor)),
-            (int) (HealthRange.y * (_mm.MonsterLv * _mm.HealthGrowFactor)));
+        _totalHealth = Random.Range((int) (HealthRange.x * (1 +_mm.MonsterLv * _mm.HealthGrowFactor)),
+            (int) (HealthRange.y * (1 + _mm.MonsterLv * _mm.HealthGrowFactor)));
         _currentHealth = _totalHealth;
         SetHealth(1f);
     }
@@ -43,7 +43,8 @@ public class Monster : MonoBehaviour
         {
             _animator.SetBool("Alive", true);
         }
-
+        Debug.Log("current:" + _currentHealth);
+        Debug.Log("total:" + _totalHealth);
         SetHealth(_currentHealth / _totalHealth);
     }
 
@@ -55,8 +56,8 @@ public class Monster : MonoBehaviour
 
     public int GetReward()
     {
-        return Random.Range((int) (RewardRange.x * (_mm.MonsterLv * _mm.RewardGrowFactor)),
-            (int) (RewardRange.y * (_mm.MonsterLv * _mm.RewardGrowFactor)));
+        return Random.Range((int) (RewardRange.x * (1 +_mm.MonsterLv * _mm.RewardGrowFactor)),
+            (int) (RewardRange.y * (1 +_mm.MonsterLv * _mm.RewardGrowFactor)));
     }
 
     public void Die()
