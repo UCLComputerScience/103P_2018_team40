@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    public const float FullHealthScale = 1.301246F;
     public Vector2 RewardRange;
     public Vector2 HealthRange;
 
     private MonsterManager _mm;
     private Animator _animator;
     private GameObject _hb;
-    private float _totalHealth = 1f;
-    private float _currentHealth = 1f;
+    public float _totalHealth = 1f;
+    public float _currentHealth = 1f;
+    private const float FullHealthScale = 1.301246F;
 
     private void Awake()
     {
@@ -24,7 +24,8 @@ public class Monster : MonoBehaviour
 
     private void Start()
     {
-        _totalHealth = Random.Range((int) HealthRange.x, (int) HealthRange.y);
+        _totalHealth = Random.Range((int) (HealthRange.x * (_mm.MonsterLv * _mm.HealthGrowFactor)),
+            (int) (HealthRange.y * (_mm.MonsterLv * _mm.HealthGrowFactor)));
         _currentHealth = _totalHealth;
         SetHealth(1f);
     }
@@ -54,7 +55,8 @@ public class Monster : MonoBehaviour
 
     public int GetReward()
     {
-        return Random.Range((int) RewardRange.x, (int) RewardRange.y);
+        return Random.Range((int) (RewardRange.x * (_mm.MonsterLv * _mm.RewardGrowFactor)),
+            (int) (RewardRange.y * (_mm.MonsterLv * _mm.RewardGrowFactor)));
     }
 
     public void Die()
