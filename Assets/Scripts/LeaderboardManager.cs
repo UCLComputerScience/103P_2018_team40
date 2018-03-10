@@ -13,16 +13,11 @@ public class LeaderboardManager : MonoBehaviour
     public GameObject NameInputField;
     public float EntryStartingY;
     public float EntryYSpacing;
+    public const string PhpUrl = "https://fizzyogaming6.azurewebsites.net/";
 
     private GameManager _gm;
     private string _name = "Default";
 
-    private string _conSting = "user id=bcf74a4a937449;"
-                               + "password=fb35064177cf9e0;"
-//                               + "Trusted_Connection=yes;"
-                               + "database=arduinocoursework;"
-                               + "connection timeout=15;"
-                               + "Server=eu-cdbr-azure-west-b.cloudapp.net";
 
 
     private void Awake()
@@ -30,7 +25,6 @@ public class LeaderboardManager : MonoBehaviour
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    // Use this for initialization
     void Start()
     {
         gameObject.SetActive(false);
@@ -45,36 +39,7 @@ public class LeaderboardManager : MonoBehaviour
 
     public IEnumerator DisplayEntries()
     {
-//        SqlConnection dbcon = new SqlConnection(_conSting);
-//        try
-//        {
-//            dbcon.Open();
-//            Debug.Log("Connection successful");    
-//            
-//            var dbcom = new SqlCommand("SELECT rank, score, name "
-//                                       + "FROM scoreboard "
-//                                       + "ORDER BY rank", dbcon);
-//            var dbReader = dbcom.ExecuteReader();
-//            for (int i = 1; i < 4; i++)
-//            {
-//                if (dbReader.Read())
-//                {
-//                    var en = Instantiate(EntryPrefab);
-//                    en.transform.SetParent(transform, false);
-//                    var pos = en.transform.localPosition;
-//                    pos.y = EntryStartingY - (i - 1) * EntryYSpacing;
-//                    en.transform.localPosition = pos;
-//                    en.GetComponent<Entry>().SetEntry(dbReader["rank"].ToString(), dbReader["score"].ToString(),
-//                        dbReader["name"].ToString());
-//                }
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            Debug.Log("Connection Error!");
-//            Debug.Log(e.ToString());
-//        }
-        var web = new WWW("https://fizzyogaming6.azurewebsites.net/");
+        var web = new WWW(PhpUrl);
         yield return web;
         string[] entries = web.text.Split('\\');
         Debug.Log(web.text);
@@ -96,9 +61,23 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
-    public void GetName()
+    public void Upload()
     {
         _name = NameInputField.GetComponent<InputField>().text;
         _name = _name == "" ? "Default" : _name;
+        var form = new WWWForm();
+        form.AddField("rank",1);
+        form.AddField("score",(int)_gm.Score);
+        form.AddField("name",_name);
+        
+        var www = new WWW(PhpUrl,form);
+        StartCoroutine(CheckWWW(www));
+
+    }
+
+    private IEnumerator CheckWWW(WWW w)
+    {
+        yield return w;
+        Debug.Log(w.text);
     }
 }
