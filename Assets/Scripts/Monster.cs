@@ -43,8 +43,6 @@ public class Monster : MonoBehaviour
         {
             _animator.SetBool("Alive", true);
         }
-        Debug.Log("current:" + _currentHealth);
-        Debug.Log("total:" + _totalHealth);
         SetHealth(_currentHealth / _totalHealth);
     }
 

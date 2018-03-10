@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     public int Lv;
     public float PowerGrow;
     public int CostGrow;
+    public int RoundTo;
     private Text _lvText;
     private Text _powerText;
     private Text _costText;
@@ -50,6 +51,7 @@ public class Character : MonoBehaviour
 
         Lv += 1;
         Power += PowerGrow;
+        Power = (float) Math.Round(Power, RoundTo);
         cost += CostGrow;
         foreach (var power in _powerComponents)
         {
