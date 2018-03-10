@@ -40,11 +40,8 @@ public class LeaderboardManager : MonoBehaviour
         StartCoroutine(DisplayEntries());
     }
 
-    private IEnumerator DisplayEntries()
+    private void DestoryEntries()
     {
-        yield return new WaitForSeconds(0.1f); // give enough time for insertion to apply
-        
-        // destory all previous entries
         foreach (Transform en in transform)
         {
             if (en.name.StartsWith("Entry(Clone)"))
@@ -52,6 +49,14 @@ public class LeaderboardManager : MonoBehaviour
                 Destroy(en.gameObject);
             }
         }
+    }
+
+    private IEnumerator DisplayEntries()
+    {
+        yield return new WaitForSeconds(0.1f); // give enough time for insertion to apply
+        // destory all previous entries
+        DestoryEntries();
+        
         // query db through php website
         var web = new WWW(PhpUrl);
         yield return web;
@@ -104,11 +109,16 @@ public class LeaderboardManager : MonoBehaviour
         InvalidNameText.SetActive(false);
     }
 
-
-
     private void DisplayError(string msg)
     {
         ErrorText.SetActive(true);
         ErrorText.GetComponent<Text>().text = msg;
+    }
+
+    public void Close()
+    {
+        DestoryEntries();
+        gameObject.SetActive(false);
+        _gm.CloseLeaderboard();
     }
 }

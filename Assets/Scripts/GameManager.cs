@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -66,21 +67,28 @@ public class GameManager : MonoBehaviour
 
     public void HideForLeaderboard()
     {
-        HideAllChildren(_mm.gameObject);
-        HideAllChildren(GameObject.Find("Canvas/Hitbar"));
+        ToggleChildrenRenderer(_mm.gameObject, false);
+        ToggleChildrenRenderer(GameObject.Find("Canvas/Hitbar"), false);
     }
 
-    private void HideAllChildren(GameObject go)
+    public void CloseLeaderboard()
+    {
+        ToggleChildrenRenderer(_mm.gameObject, true);
+        ToggleChildrenRenderer(GameObject.Find("Canvas/Hitbar"), true);
+    }
+
+    private void ToggleChildrenRenderer(GameObject go, bool enable)
     {
         if (go.gameObject.GetComponent<Renderer>() != null)
         {
-            go.GetComponent<Renderer>().enabled = false;
+            go.GetComponent<Renderer>().enabled = enable;
         }
+
         foreach (Transform child in go.transform)
         {
             if (child.gameObject.GetComponent<Renderer>() != null)
             {
-                child.gameObject.GetComponent<Renderer>().enabled = false;
+                child.gameObject.GetComponent<Renderer>().enabled = enable;
             }
         }
     }
