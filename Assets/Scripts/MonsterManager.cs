@@ -16,10 +16,6 @@ public class MonsterManager : MonoBehaviour
     private void Awake()
     {
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
-
-    private void Start()
-    {
         MonsterLv = 0;
     }
 

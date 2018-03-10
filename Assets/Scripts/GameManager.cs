@@ -63,4 +63,25 @@ public class GameManager : MonoBehaviour
         Score += amount;
         _ui.UpdateScore(Score);
     }
+
+    public void HideForLeaderboard()
+    {
+        HideAllChildren(_mm.gameObject);
+        HideAllChildren(GameObject.Find("Canvas/Hitbar"));
+    }
+
+    private void HideAllChildren(GameObject go)
+    {
+        if (go.gameObject.GetComponent<Renderer>() != null)
+        {
+            go.GetComponent<Renderer>().enabled = false;
+        }
+        foreach (Transform child in go.transform)
+        {
+            if (child.gameObject.GetComponent<Renderer>() != null)
+            {
+                child.gameObject.GetComponent<Renderer>().enabled = false;
+            }
+        }
+    }
 }
