@@ -5,6 +5,9 @@ using UnityEngine;
 public class MonsterManager : MonoBehaviour
 {
     public GameObject[] Prefabs;
+    public int MonsterLv;
+    public float HealthGrowFactor;
+    public float RewardGrowFactor;
     public bool NeedSpawn = true;
 
     private Monster _monster;
@@ -13,6 +16,11 @@ public class MonsterManager : MonoBehaviour
     private void Awake()
     {
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    private void Start()
+    {
+        MonsterLv = 0;
     }
 
     void FixedUpdate()
@@ -32,7 +40,7 @@ public class MonsterManager : MonoBehaviour
     {
         var go = GameObject.Instantiate(Prefabs[Random.Range(0, Prefabs.Length)]);
 //        go.transform.position = transform.position;
-        go.transform.SetParent(transform,false);
+        go.transform.SetParent(transform, false);
         _monster = go.GetComponent<Monster>();
         NeedSpawn = false;
         //var newTransform = transform;
@@ -41,6 +49,7 @@ public class MonsterManager : MonoBehaviour
 
     public void KillMonster()
     {
+        MonsterLv += 1;
         NeedSpawn = true;
         _gm.ChangeCoinNum(_monster.GetReward());
         GameObject.Destroy(_monster.gameObject);
