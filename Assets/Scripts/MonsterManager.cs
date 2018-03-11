@@ -46,6 +46,7 @@ public class MonsterManager : MonoBehaviour
     public void KillMonster()
     {
         MonsterLv += 1;
+        _gm.ShowMonsterLv(MonsterLv);
         // Change bg every ten monsters
         if (MonsterLv % 10 == 0)
         {

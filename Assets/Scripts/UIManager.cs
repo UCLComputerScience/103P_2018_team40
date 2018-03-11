@@ -10,12 +10,14 @@ public class UIManager : MonoBehaviour
 
     private Text _coinText;
     private Text _scoreText;
+    private Text _monsterLvText;
     private GameManager _gm;
 
     private void Awake()
     {
         _coinText = GameObject.Find("Canvas/CoinPanel/CoinText").GetComponent<Text>();
         _scoreText = GameObject.Find("Canvas/ScoreFrame/ScoreText").GetComponent<Text>();
+        _monsterLvText = GameObject.Find("Canvas/MonsterLv/MonsterLvText").GetComponent<Text>();
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -40,5 +42,10 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(double newScore)
     {
         _scoreText.text = Math.Round(newScore,0).ToString().PadLeft(11,'0');
+    }
+
+    public void UpdateMonsterLv(int newLv)
+    {
+        _monsterLvText.text = newLv.ToString();
     }
 }

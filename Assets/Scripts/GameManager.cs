@@ -99,4 +99,9 @@ public class GameManager : MonoBehaviour
     {
         _bm.NextBg();
     }
+
+    public void ShowMonsterLv(int lv)
+    {
+        _ui.UpdateMonsterLv(lv);
+    }
 }
