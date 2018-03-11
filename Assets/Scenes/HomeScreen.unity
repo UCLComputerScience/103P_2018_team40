@@ -4199,9 +4199,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Power: 0
   Lv: 1
-  PowerGrow: 0.1
+  PowerGrow: 0.05
   CostGrow: 600
-  RoundTo: 1
+  RoundTo: 2
 --- !u!114 &746284215
 MonoBehaviour:
   m_ObjectHideFlags: 0
