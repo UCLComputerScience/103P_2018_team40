@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public int LoopNum;
-
+    public GameObject LeaderboardPrefab;
+    
     private Text _coinText;
     private Text _scoreText;
     private Text _monsterLvText;
@@ -47,5 +48,11 @@ public class UIManager : MonoBehaviour
     public void UpdateMonsterLv(int newLv)
     {
         _monsterLvText.text = newLv.ToString();
+    }
+
+    public void ShowLeaderboard()
+    {
+        var lb = Instantiate(LeaderboardPrefab);
+        lb.transform.SetParent(transform,false);
     }
 }

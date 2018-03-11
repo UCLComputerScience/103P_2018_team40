@@ -28,11 +28,6 @@ public class LeaderboardManager : MonoBehaviour
 
     void Start()
     {
-        gameObject.SetActive(false);
-    }
-
-    public void Show()
-    {
         _gm.HideForLeaderboard();
         gameObject.SetActive(true);
         ErrorText.SetActive(false);
@@ -53,7 +48,7 @@ public class LeaderboardManager : MonoBehaviour
 
     private IEnumerator DisplayEntries()
     {
-        yield return new WaitForSeconds(0.1f); // give enough time for insertion to apply
+        //yield return new WaitForSeconds(0.1f); // give enough time for insertion to apply
         // destory all previous entries
         DestoryEntries();
         
@@ -104,9 +99,15 @@ public class LeaderboardManager : MonoBehaviour
         form.AddField("score", (int) _gm.Score);
         form.AddField("name", _name);
         var www = new WWW(PhpUrl, form);
-        
-        StartCoroutine(DisplayEntries());
         InvalidNameText.SetActive(false);
+        
+        StartCoroutine(WaitForInsertion(www));
+    }
+
+    private IEnumerator WaitForInsertion(WWW w)
+    {
+        yield return w;
+        StartCoroutine(DisplayEntries());
     }
 
     private void DisplayError(string msg)
@@ -118,7 +119,7 @@ public class LeaderboardManager : MonoBehaviour
     public void Close()
     {
         DestoryEntries();
-        gameObject.SetActive(false);
         _gm.CloseLeaderboard();
+        Destroy(gameObject);
     }
 }
