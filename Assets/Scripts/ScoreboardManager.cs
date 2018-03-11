@@ -7,7 +7,7 @@ using System.Data.Sql;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LeaderboardManager : MonoBehaviour
+public class ScoreboardManager : MonoBehaviour
 {
     public GameObject EntryPrefab;
     public GameObject NameInputField;
