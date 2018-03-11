@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private UIManager _ui;
     private CharacterManager _cm;
     private DamageIndicator _di;
+    private BackgroundManager _bm;
 
     // Use this for initialization
     void Awake()
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
         _cm = GameObject.Find("Canvas/Upgrade/CharacterManager").GetComponent<CharacterManager>();
         _di = GameObject.Find("Canvas/DamageIndicator").GetComponent<DamageIndicator>();
+        _bm = GameObject.Find("BackgroundManager").GetComponent<BackgroundManager>();
         DmgBuffer = 0;
         Score = 0;
     }
@@ -91,5 +93,10 @@ public class GameManager : MonoBehaviour
                 child.gameObject.GetComponent<Renderer>().enabled = enable;
             }
         }
+    }
+
+    public void ChangeBg()
+    {
+        _bm.NextBg();
     }
 }

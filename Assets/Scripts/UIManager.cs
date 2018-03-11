@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         _coinText = GameObject.Find("Canvas/CoinPanel/CoinText").GetComponent<Text>();
-        _scoreText = GameObject.Find("Canvas/ScoreText").GetComponent<Text>();
+        _scoreText = GameObject.Find("Canvas/ScoreFrame/ScoreText").GetComponent<Text>();
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 

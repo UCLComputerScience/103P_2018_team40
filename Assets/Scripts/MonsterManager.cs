@@ -46,6 +46,11 @@ public class MonsterManager : MonoBehaviour
     public void KillMonster()
     {
         MonsterLv += 1;
+        // Change bg every ten monsters
+        if (MonsterLv % 10 == 0)
+        {
+            _gm.ChangeBg();
+        }
         NeedSpawn = true;
         _gm.ChangeCoinNum(_monster.GetReward());
         GameObject.Destroy(_monster.gameObject);
