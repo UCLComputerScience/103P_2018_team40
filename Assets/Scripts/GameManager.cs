@@ -11,20 +11,21 @@ public class GameManager : MonoBehaviour
     public int CoinNum;
     public double Score;
 
-    private MonsterManager _mm;
-    private UIManager _ui;
-    private CharacterManager _cm;
-    private DamageIndicator _di;
-    private BackgroundManager _bm;
+    public MonsterManager Mm;
+    public UIManager Ui;
+    public CharacterManager Cm;
+    public DamageIndicator Di;
+    public BackgroundManager Bm;
+    public AudioManager Am;
 
     // Use this for initialization
     void Awake()
     {
-        _mm = GameObject.Find("MonsterManager").GetComponent<MonsterManager>();
-        _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
-        _cm = GameObject.Find("Canvas/Upgrade/CharacterManager").GetComponent<CharacterManager>();
-        _di = GameObject.Find("Canvas/DamageIndicator").GetComponent<DamageIndicator>();
-        _bm = GameObject.Find("BackgroundManager").GetComponent<BackgroundManager>();
+//        _mm = GameObject.Find("MonsterManager").GetComponent<MonsterManager>();
+//        _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
+//        _cm = GameObject.Find("Canvas/Upgrade/CharacterManager").GetComponent<CharacterManager>();
+//        _di = GameObject.Find("Canvas/DamageIndicator").GetComponent<DamageIndicator>();
+//        _bm = GameObject.Find("BackgroundManager").GetComponent<BackgroundManager>();
         DmgBuffer = 0;
         Score = 0;
     }
@@ -41,9 +42,18 @@ public class GameManager : MonoBehaviour
 
     public void ChangeCoinNum(int amount)
     {
+        if (amount > 0)
+        {
+            Am.PlayCoinGained();
+        }
+        else if (amount < 0)
+        {
+            Am.PlayCoinSpent();
+        }
+
         CoinNum += amount;
         AddScore(Math.Abs(amount));
-        StartCoroutine(_ui.UpdateCoins(amount));
+        StartCoroutine(Ui.UpdateCoins(amount));
     }
 
 
@@ -57,25 +67,26 @@ public class GameManager : MonoBehaviour
 
     public void Hit(float dmg)
     {
+        Am.PlayHit();
         DmgBuffer += dmg;
-        _di.ShowDmg(dmg);
+        Di.ShowDmg(dmg);
     }
 
-    public void AddScore(double amount)
+    private void AddScore(double amount)
     {
         Score += amount;
-        _ui.UpdateScore(Score);
+        Ui.UpdateScore(Score);
     }
 
     public void HideForLeaderboard()
     {
-        ToggleChildrenRenderer(_mm.gameObject, false);
+        ToggleChildrenRenderer(Mm.gameObject, false);
         ToggleChildrenRenderer(GameObject.Find("Canvas/Hitbar"), false);
     }
 
     public void CloseLeaderboard()
     {
-        ToggleChildrenRenderer(_mm.gameObject, true);
+        ToggleChildrenRenderer(Mm.gameObject, true);
         ToggleChildrenRenderer(GameObject.Find("Canvas/Hitbar"), true);
     }
 
@@ -97,11 +108,26 @@ public class GameManager : MonoBehaviour
 
     public void ChangeBg()
     {
-        _bm.NextBg();
+        Bm.NextBg();
     }
 
     public void ShowMonsterLv(int lv)
     {
-        _ui.UpdateMonsterLv(lv);
+        Ui.UpdateMonsterLv(lv);
     }
+
+//    public void PlayCoinGained()
+//    {
+//        Am.PlayCoinGained();
+//    }
+//
+//    public void PlayCoinSpent()
+//    {
+//        Am.PlayCoinSpent();
+//    }
+//
+//    public void PlayHit()
+//    {
+//        Am.PlayHit();
+//    }
 }
