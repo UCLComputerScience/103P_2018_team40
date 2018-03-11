@@ -8,6 +8,7 @@ public class Hitbar : MonoBehaviour
     public float MovingSpeed;
     public float BaseDamage;
     public float DmgAdds;
+    public Vector2 RandomDmgRange;
     public Vector2 CBRange;
     public Vector2 HBRange;
     public float HBRangeMultiplier;
@@ -33,6 +34,8 @@ public class Hitbar : MonoBehaviour
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _slider = gameObject.GetComponent<Slider>();
         DmgAdds = 0;
+        RandomDmgRange.x = 1;
+        RandomDmgRange.y = 1;
         HBRangeMultiplier = 1;
         GoodBreath = false;
     }
@@ -54,7 +57,7 @@ public class Hitbar : MonoBehaviour
         }
         else
         {
-            HidePointer();
+            Pointer.GetComponent<Renderer>().enabled = false;
         }
     }
 
@@ -90,21 +93,17 @@ public class Hitbar : MonoBehaviour
         Pointer.GetComponent<Renderer>().enabled = true;
     }
 
-    private void HidePointer()
-    {
-        Pointer.GetComponent<Renderer>().enabled = false;
-    }
-
     private IEnumerator StopPointer()
     {
         _pausing = true;
+        var dmgMultiplier = Random.Range(RandomDmgRange.x, RandomDmgRange.y);
         if (CBValueRange.x < _slider.value && _slider.value < CBValueRange.y)
         {
-            _gm.Hit((BaseDamage + DmgAdds) * 2);
+            _gm.Hit((int)((BaseDamage + DmgAdds) * 2 * dmgMultiplier));
         }
         else if (HBValueRange.x < _slider.value && _slider.value < HBValueRange.y)
         {
-            _gm.Hit(BaseDamage + DmgAdds);
+            _gm.Hit((int)((BaseDamage + DmgAdds) * dmgMultiplier));
         }
 
         yield return new WaitForSeconds(0.5f);
