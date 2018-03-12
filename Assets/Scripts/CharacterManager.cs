@@ -5,23 +5,18 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    public List<GameObject> Characters;
-    private GameManager _gm;
+    public GameManager Gm;
 
     // Use this for initialization
-    void Awake()
-    {
-        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
 
     public bool TrySpendingCoins(int amount)
     {
-        if (!_gm.HasEnoughCoin(amount))
+        if (!Gm.HasEnoughCoin(amount))
         {
             return false;
         }
 
-        _gm.ChangeCoinNum(-amount);
+        Gm.ChangeCoinNum(-amount);
         return true;
     }
 }

@@ -10,16 +10,15 @@ using UnityEngine.UI;
 public class ScoreboardManager : MonoBehaviour
 {
     public GameObject EntryPrefab;
-    public GameObject NameInputField;
+    public InputField NameInputField;
     public GameObject ErrorText;
     public GameObject InvalidNameText;
     public float EntryStartingY;
     public float EntryYSpacing;
-    public const string PhpUrl = "https://fizzyogaming6.azurewebsites.net";
 
     private GameManager _gm;
     private string _name = "Default";
-
+    private const string PhpUrl = "https://fizzyogaming6.azurewebsites.net";
 
     private void Awake()
     {
@@ -88,7 +87,7 @@ public class ScoreboardManager : MonoBehaviour
 
     public void Upload()
     {
-        _name = NameInputField.GetComponent<InputField>().text;
+        _name = NameInputField.text;
         _name = _name == "" ? "Default" : _name;
         if (_name.Contains(";") || _name.Contains("\\"))
         {
