@@ -9,6 +9,13 @@ using Fizzyo;
 
 public class FizzyoDevice : MonoBehaviour
 {
+
+    /*void Start()
+    {
+        FizzyoFramework.Instance.Recogniser.BreathStarted += OnBreathStarted;
+        FizzyoFramework.Instance.Recogniser.BreathComplete += OnBreathEnded;
+    }*/
+
     public bool isButtonPressed() // working fine
     {
         bool buttonPressed = FizzyoFramework.Instance.Device.ButtonDown();
@@ -25,6 +32,32 @@ public class FizzyoDevice : MonoBehaviour
         }
         return true;
     }
+
+    /*public bool goodBreath(object sender, ExhalationCompleteEventArgs e)
+    {
+        //FizzyoFramework.Instance.Device.Recogniser.IsBreathFull();
+        if(e.IsBreathFull() == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }*/
+
+    /*public bool OnBreathEnded(object sender, ExhalationCompleteEventArgs e)
+    {
+        //FizzyoFramework.Instance.Device.Recogniser.IsBreathFull();
+        if (e.IsBreathFull() == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }*/
 }
 
 
