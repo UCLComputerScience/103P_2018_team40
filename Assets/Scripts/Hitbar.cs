@@ -8,6 +8,7 @@ public class Hitbar : MonoBehaviour
     public float MovingSpeed;
     public float BaseDamage;
     public float DmgAdds;
+    public int GoodBreathReward;
     public Vector2 RandomDmgRange;
     public Vector2 CBRange;
     public Vector2 HBRange;
@@ -15,12 +16,14 @@ public class Hitbar : MonoBehaviour
     public GameObject CriticalBlock;
     public GameObject HitBlock;
     public GameObject Pointer;
+    public GameManager Gm;
     public bool GoodBreath;
+    public bool BadBreath;
 
     private Slider _slider;
-    private GameManager _gm;
     private bool _movingDirction = true; // ture -> towards right, false -> towards left
     private bool _pausing = false;
+    private int _comboNum;
     private const int MaxScale = 438;
     private const int LeftXPos = -220;
     private const int LeftXPosPointer = -215;
@@ -31,13 +34,14 @@ public class Hitbar : MonoBehaviour
     // Use this for initialization 
     void Awake()
     {
-        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _slider = gameObject.GetComponent<Slider>();
         DmgAdds = 0;
         RandomDmgRange.x = 1;
         RandomDmgRange.y = 1;
         HBRangeMultiplier = 1;
         GoodBreath = false;
+        BadBreath = false;
+        _comboNum = 0;
     }
 
     private void Start()
@@ -58,6 +62,15 @@ public class Hitbar : MonoBehaviour
         else
         {
             Pointer.GetComponent<Renderer>().enabled = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.A)) // simulate good breath
+        {
+            GoodBreath = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.B)) // simulate good breath
+        {
+            BadBreath = true;
         }
     }
 
@@ -83,6 +96,20 @@ public class Hitbar : MonoBehaviour
                 }
             }
         }
+
+        if (GoodBreath)
+        {
+            GoodBreath = false;
+            _comboNum += 1;
+            Gm.ChangeCoinNum(GoodBreathReward * (1 + _comboNum / 10));
+            Gm.ShowCombo(_comboNum);
+        }
+        else if (BadBreath)
+        {
+            BadBreath = false;
+            _comboNum = 0;
+            Gm.ShowCombo(_comboNum);
+        }
     }
 
     private void DisplayPointer()
@@ -99,11 +126,11 @@ public class Hitbar : MonoBehaviour
         var dmgMultiplier = Random.Range(RandomDmgRange.x, RandomDmgRange.y);
         if (CBValueRange.x < _slider.value && _slider.value < CBValueRange.y)
         {
-            _gm.Hit((int)((BaseDamage + DmgAdds) * 2 * dmgMultiplier));
+            Gm.Hit((int) ((BaseDamage + DmgAdds) * 2 * dmgMultiplier));
         }
         else if (HBValueRange.x < _slider.value && _slider.value < HBValueRange.y)
         {
-            _gm.Hit((int)((BaseDamage + DmgAdds) * dmgMultiplier));
+            Gm.Hit((int) ((BaseDamage + DmgAdds) * dmgMultiplier));
         }
 
         yield return new WaitForSeconds(0.5f);

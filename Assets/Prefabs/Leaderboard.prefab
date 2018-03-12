@@ -744,7 +744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntryPrefab: {fileID: 1553423587280160, guid: 1bdad31b084a16b4b869561b5f73a0a2,
     type: 2}
-  NameInputField: {fileID: 1844721944359052}
+  NameInputField: {fileID: 114063982601750660}
   ErrorText: {fileID: 1653702225951044}
   InvalidNameText: {fileID: 1594310964999698}
   EntryStartingY: 65

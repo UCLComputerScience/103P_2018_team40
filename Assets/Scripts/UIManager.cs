@@ -8,51 +8,54 @@ public class UIManager : MonoBehaviour
 {
     public int LoopNum;
     public GameObject LeaderboardPrefab;
-    
-    private Text _coinText;
-    private Text _scoreText;
-    private Text _monsterLvText;
-    private GameManager _gm;
-
-    private void Awake()
-    {
-        _coinText = GameObject.Find("Canvas/CoinPanel/CoinText").GetComponent<Text>();
-        _scoreText = GameObject.Find("Canvas/ScoreFrame/ScoreText").GetComponent<Text>();
-        _monsterLvText = GameObject.Find("Canvas/MonsterLv/MonsterLvText").GetComponent<Text>();
-        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
+    public DamageIndicator Di;
+    public ComboIndicator Ci;
+    public Text CoinText;
+    public Text ScoreText;
+    public Text MonsterLvText;
+    public GameManager Gm;
 
     private void Start()
     {
-        _coinText.text = _gm.CoinNum.ToString();
+        CoinText.text = Gm.CoinNum.ToString();
     }
 
     public IEnumerator UpdateCoins(int coinChange)
     {
         for (int i = 1; i <= LoopNum; i++)
         {
-            int newCoin = _gm.CoinNum - coinChange * (LoopNum - i) / LoopNum;
-            _coinText.text = newCoin.ToString();
+            int newCoin = Gm.CoinNum - coinChange * (LoopNum - i) / LoopNum;
+            CoinText.text = newCoin.ToString();
             yield return new WaitForSeconds(0.01F);
         }
 
-        int finalCoinNum = _gm.CoinNum;
-        _coinText.text = finalCoinNum.ToString();
+        int finalCoinNum = Gm.CoinNum;
+        CoinText.text = finalCoinNum.ToString();
     }
 
     public void UpdateScore(double newScore)
     {
-        _scoreText.text = Math.Round(newScore,0).ToString().PadLeft(11,'0');
+        ScoreText.text = Math.Round(newScore,0).ToString().PadLeft(11,'0');
     }
 
     public void UpdateMonsterLv(int newLv)
     {
-        _monsterLvText.text = newLv.ToString();
+        MonsterLvText.text = newLv.ToString();
     }
 
     public void ShowLeaderboard()
     {
         var lb = Instantiate(LeaderboardPrefab);
         lb.transform.SetParent(transform,false);
+    }
+
+    public void ShowDmg(float dmg)
+    {
+        Di.ShowDmg(dmg);
+    }
+
+    public void ShowCombo(int num)
+    {
+        Ci.UpdateCombo(num);
     }
 }

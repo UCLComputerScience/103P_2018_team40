@@ -12,20 +12,14 @@ public class GameManager : MonoBehaviour
     public double Score;
 
     public MonsterManager Mm;
-    public UIManager Ui;
+    public UIManager Um;
     public CharacterManager Cm;
-    public DamageIndicator Di;
     public BackgroundManager Bm;
     public AudioManager Am;
 
     // Use this for initialization
     void Awake()
     {
-//        _mm = GameObject.Find("MonsterManager").GetComponent<MonsterManager>();
-//        _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
-//        _cm = GameObject.Find("Canvas/Upgrade/CharacterManager").GetComponent<CharacterManager>();
-//        _di = GameObject.Find("Canvas/DamageIndicator").GetComponent<DamageIndicator>();
-//        _bm = GameObject.Find("BackgroundManager").GetComponent<BackgroundManager>();
         DmgBuffer = 0;
         Score = 0;
     }
@@ -53,7 +47,7 @@ public class GameManager : MonoBehaviour
 
         CoinNum += amount;
         AddScore(Math.Abs(amount));
-        StartCoroutine(Ui.UpdateCoins(amount));
+        StartCoroutine(Um.UpdateCoins(amount));
     }
 
 
@@ -69,13 +63,13 @@ public class GameManager : MonoBehaviour
     {
         Am.PlayHit();
         DmgBuffer += dmg;
-        Di.ShowDmg(dmg);
+        Um.ShowDmg(dmg);
     }
 
     private void AddScore(double amount)
     {
         Score += amount;
-        Ui.UpdateScore(Score);
+        Um.UpdateScore(Score);
     }
 
     public void HideForLeaderboard()
@@ -113,21 +107,13 @@ public class GameManager : MonoBehaviour
 
     public void ShowMonsterLv(int lv)
     {
-        Ui.UpdateMonsterLv(lv);
+        Um.UpdateMonsterLv(lv);
     }
 
-//    public void PlayCoinGained()
-//    {
-//        Am.PlayCoinGained();
-//    }
-//
-//    public void PlayCoinSpent()
-//    {
-//        Am.PlayCoinSpent();
-//    }
-//
-//    public void PlayHit()
-//    {
-//        Am.PlayHit();
-//    }
+    public void ShowCombo(int num)
+    {
+        Um.ShowCombo(num);
+    }
+
+
 }

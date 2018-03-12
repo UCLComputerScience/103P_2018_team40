@@ -8,10 +8,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip CoinGained;
     public AudioClip CoinSpent;
     public AudioClip[] Hits;
-    
-//    public AudioSource CoinGained;
-//    public AudioSource CoinSpent;
-//    public AudioSource[] Hits;
 
     public void PlayCoinGained()
     {

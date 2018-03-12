@@ -5,19 +5,13 @@ using UnityEngine;
 public class MonsterManager : MonoBehaviour
 {
     public GameObject[] Prefabs;
+    public GameManager Gm;
     public int MonsterLv;
     public float HealthGrowFactor;
     public float RewardGrowFactor;
     public bool NeedSpawn = true;
 
     private Monster _monster;
-    private GameManager _gm;
-
-    private void Awake()
-    {
-        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        MonsterLv = 0;
-    }
 
     void FixedUpdate()
     {
@@ -29,7 +23,7 @@ public class MonsterManager : MonoBehaviour
 
     public float GetDamage()
     {
-        return _gm.GetDamage();
+        return Gm.GetDamage();
     }
 
     private void SpawnEnemy()
@@ -46,14 +40,14 @@ public class MonsterManager : MonoBehaviour
     public void KillMonster()
     {
         MonsterLv += 1;
-        _gm.ShowMonsterLv(MonsterLv);
+        Gm.ShowMonsterLv(MonsterLv);
         // Change bg every ten monsters
         if (MonsterLv % 10 == 0)
         {
-            _gm.ChangeBg();
+            Gm.ChangeBg();
         }
         NeedSpawn = true;
-        _gm.ChangeCoinNum(_monster.GetReward());
+        Gm.ChangeCoinNum(_monster.GetReward());
         GameObject.Destroy(_monster.gameObject);
     }
 }
