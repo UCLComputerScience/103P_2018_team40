@@ -9,26 +9,14 @@ using Fizzyo;
 
 public class FizzyoDevice : MonoBehaviour
 {
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    { 
-        
-    }
-
-    public bool isButtonPressed()
+    public bool isButtonPressed() // working fine
     {
         bool buttonPressed = FizzyoFramework.Instance.Device.ButtonDown();
+        Debug.Log("Button Pressed is: " + buttonPressed);
         return buttonPressed;
     }
 
-    public bool isBlow()
+    public bool isBlow() // TODO: Fix it
     {
         float pressure = FizzyoFramework.Instance.Device.Pressure();
         if (pressure == 0)
