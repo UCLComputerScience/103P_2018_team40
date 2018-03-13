@@ -10,11 +10,11 @@ using Fizzyo;
 public class FizzyoDevice : MonoBehaviour
 {
 
-    /*void Start()
+    void Start()
     {
         FizzyoFramework.Instance.Recogniser.BreathStarted += OnBreathStarted;
         FizzyoFramework.Instance.Recogniser.BreathComplete += OnBreathEnded;
-    }*/
+    }
 
     private void FixedUpdate()
     {
@@ -65,17 +65,56 @@ public class FizzyoDevice : MonoBehaviour
     }*/
 
    
-    /*void OnBreathStarted(object sender)
+    void OnBreathStarted(object sender)
     {
 
     }
 
-    bool OnBreathEnded(object sender, ExhalationCompleteEventArgs e)
-    {   
+    void OnBreathEnded(object sender, ExhalationCompleteEventArgs e)
+    {
         
 
-    }*/
+    }
+
+
+    public bool goodBreath(ExhalationCompleteEventArgs e)
+    {
+        bool good = e.IsBreathFull;
+        if(good == true)
+        {
+            return true;
+        }
+        float breath = e.ExhaledVolume;
+        if(breath == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+            
+    }
    
+    public bool badBreath(ExhalationCompleteEventArgs e)
+    {
+        bool good = e.IsBreathFull;
+        if (good == false)
+        {
+            return true;
+        }
+        float breath = e.ExhaledVolume;
+        if (breath == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
 }
 
 
