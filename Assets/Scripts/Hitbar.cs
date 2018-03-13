@@ -16,6 +16,7 @@ public class Hitbar : MonoBehaviour
     public GameObject CriticalBlock;
     public GameObject HitBlock;
     public GameObject Pointer;
+    public FizzyoDevice Fd;
     public GameManager Gm;
     public bool GoodBreath;
     public bool BadBreath;
@@ -51,10 +52,10 @@ public class Hitbar : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Fd.isBlow())
         {
             DisplayPointer();
-            if (Input.GetKeyDown(KeyCode.Return) && !_pausing)
+            if ((Input.GetKeyDown(KeyCode.Return)||Fd.isButtonPressed()) && !_pausing)
             {
                 StartCoroutine(StopPointer());
             }
