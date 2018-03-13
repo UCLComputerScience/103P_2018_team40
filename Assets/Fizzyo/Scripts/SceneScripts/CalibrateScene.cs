@@ -100,7 +100,7 @@ public class CalibrateScene : MonoBehaviour {
 
     void NextScene()
     {
-        SceneManager.LoadScene(FizzyoFramework.Instance.CallbackScenePath);
+        SceneManager.LoadScene(1);
     }
 
 

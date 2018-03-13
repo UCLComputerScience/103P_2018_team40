@@ -176,7 +176,7 @@ namespace Fizzyo
             {
                 Scene scene = SceneManager.GetActiveScene();
                 CallbackScenePath = scene.path;
-                SceneManager.LoadScene("Fizzyo/Scenes/Calibration");
+                SceneManager.LoadScene(2);
             }
 
 

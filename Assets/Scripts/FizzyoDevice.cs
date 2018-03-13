@@ -16,6 +16,11 @@ public class FizzyoDevice : MonoBehaviour
         FizzyoFramework.Instance.Recogniser.BreathComplete += OnBreathEnded;
     }*/
 
+    private void FixedUpdate()
+    {
+        Debug.Log("Pressure is: "+ FizzyoFramework.Instance.Device.Pressure());
+    }
+
     public bool isButtonPressed() // working fine
     {
         bool buttonPressed = FizzyoFramework.Instance.Device.ButtonDown();
