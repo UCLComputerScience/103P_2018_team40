@@ -28,7 +28,7 @@ public class FizzyoDevice : MonoBehaviour
         return buttonPressed;
     }
 
-    public bool isBlow() // TODO: Fix it
+    public bool isBlow() 
     {
         float pressure = FizzyoFramework.Instance.Device.Pressure();
         if (pressure == 0)
@@ -70,33 +70,66 @@ public class FizzyoDevice : MonoBehaviour
 
     }
 
-    void OnBreathEnded(object sender, ExhalationCompleteEventArgs e)
+    public void OnBreathEnded(object sender, ExhalationCompleteEventArgs e)
     {
-        
+        bool good = e.IsBreathFull;
+        float breath = e.ExhaledVolume;
+        if(good == true)
+        {
+            goodBreath(true);
+        }
+        if(good == false)
+        {
+            badBreath(false);
+        }
 
     }
 
 
-    public bool goodBreath(ExhalationCompleteEventArgs e)
+
+    public bool goodBreath(bool s)
     {
-        bool good = e.IsBreathFull;
+        if(s == true)
+        {
+            return true; //this means there is a good breath
+        }
+        return false; //not a good breath
+            
+    }
+
+    public bool badBreath(bool r)
+    {
+        if(r == false)
+        {
+            return true; //this means there is a bad breath
+        }
+        return false; //not a bad breath
+    }
+
+
+
+
+
+
+
+
+
+
+    /*public bool goodBreath(ExhalationCompleteEventArgs e)
+    {
         if(good == true)
         {
             return true;
         }
-        float breath = e.ExhaledVolume;
-        if(breath == 0)
-        {
-            return false;
-        }
+
         else
         {
             return false;
         }
             
-    }
+    }*/
    
-    public bool badBreath(ExhalationCompleteEventArgs e)
+    /*public bool badBreath(ExhalationCompleteEventArgs e)
     {
         bool good = e.IsBreathFull;
         if (good == false)
@@ -114,7 +147,7 @@ public class FizzyoDevice : MonoBehaviour
         }
 
 
-    }
+    }*/
 }
 
 
