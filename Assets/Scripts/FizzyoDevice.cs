@@ -63,6 +63,19 @@ public class FizzyoDevice : MonoBehaviour
             return false;
         }
     }*/
+
+   
+    /*void OnBreathStarted(object sender)
+    {
+
+    }
+
+    bool OnBreathEnded(object sender, ExhalationCompleteEventArgs e)
+    {   
+        
+
+    }*/
+   
 }
 
 

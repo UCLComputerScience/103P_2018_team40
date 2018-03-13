@@ -95,7 +95,7 @@ public class ProgressEllipse : MonoBehaviour {
 
         MeshFilter mf = GetComponent<MeshFilter>();
 
-        Mesh mesh = GetComponent<MeshFilter>().mesh;
+        Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
 
         mesh.Clear();
 
