@@ -6,7 +6,7 @@ using System.IO;
 using Fizzyo;
 
 
-public class FizzyoDevice : MonoBehaviour
+public class FizzyoManager : MonoBehaviour
 {
     void Start()
     {

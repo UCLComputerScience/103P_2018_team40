@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Fizzyo;
 
 public class Hitbar : MonoBehaviour
 {
@@ -16,10 +17,7 @@ public class Hitbar : MonoBehaviour
     public GameObject CriticalBlock;
     public GameObject HitBlock;
     public GameObject Pointer;
-    public FizzyoDevice Fd;
     public GameManager Gm;
-    public bool GoodBreath;
-    public bool BadBreath;
 
     private Slider _slider;
     private bool _movingDirction = true; // ture -> towards right, false -> towards left
@@ -40,22 +38,21 @@ public class Hitbar : MonoBehaviour
         RandomDmgRange.x = 1;
         RandomDmgRange.y = 1;
         HBRangeMultiplier = 1;
-        GoodBreath = false;
-        BadBreath = false;
         _comboNum = 0;
     }
 
     private void Start()
     {
+        FizzyoFramework.Instance.Recogniser.BreathComplete += UpdateCombo;
         GenerateBlocks();
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space) || Fd.isBlow())
+        if (Input.GetKey(KeyCode.Space) || FizzyoFramework.Instance.Device.Pressure() > 0)
         {
             DisplayPointer();
-            if ((Input.GetKeyDown(KeyCode.Return)||Fd.isButtonPressed()) && !_pausing)
+            if ((Input.GetKeyDown(KeyCode.Return) || FizzyoFramework.Instance.Device.ButtonDown()) && !_pausing)
             {
                 StartCoroutine(StopPointer());
             }
@@ -65,14 +62,6 @@ public class Hitbar : MonoBehaviour
             Pointer.GetComponent<Renderer>().enabled = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.A)) // simulate good breath
-        {
-            GoodBreath = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.B)) // simulate good breath
-        {
-            BadBreath = true;
-        }
     }
 
     // Update is called once per frame
@@ -97,17 +86,19 @@ public class Hitbar : MonoBehaviour
                 }
             }
         }
+    }
 
-        if (GoodBreath)
+    private void UpdateCombo(object sender, ExhalationCompleteEventArgs e) // TODO: find out why breath is always full
+    {
+        if (e.IsBreathFull)
         {
-            GoodBreath = false;
             _comboNum += 1;
             Gm.ChangeCoinNum(GoodBreathReward * (1 + _comboNum / 10));
             Gm.ShowCombo(_comboNum);
         }
-        else if (BadBreath)
+        else
         {
-            BadBreath = false;
+            Debug.Log("Breath not full");
             _comboNum = 0;
             Gm.ShowCombo(_comboNum);
         }
