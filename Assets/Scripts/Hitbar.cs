@@ -49,19 +49,21 @@ public class Hitbar : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space) || FizzyoFramework.Instance.Device.Pressure() > 0)
+        if (!Gm.LeaderboardViewing)
         {
-            DisplayPointer();
-            if ((Input.GetKeyDown(KeyCode.Return) || FizzyoFramework.Instance.Device.ButtonDown()) && !_pausing)
+            if (Input.GetKey(KeyCode.Space) || FizzyoFramework.Instance.Device.Pressure() > 0)
             {
-                StartCoroutine(StopPointer());
+                DisplayPointer();
+                if ((Input.GetKeyDown(KeyCode.Return) || FizzyoFramework.Instance.Device.ButtonDown()) && !_pausing)
+                {
+                    StartCoroutine(StopPointer());
+                }
+            }
+            else
+            {
+                Pointer.GetComponent<Renderer>().enabled = false;
             }
         }
-        else
-        {
-            Pointer.GetComponent<Renderer>().enabled = false;
-        }
-
     }
 
     // Update is called once per frame
@@ -90,18 +92,22 @@ public class Hitbar : MonoBehaviour
 
     private void UpdateCombo(object sender, ExhalationCompleteEventArgs e) // TODO: find out why breath is always full
     {
-        if (e.IsBreathFull)
+        if (!Gm.LeaderboardViewing)
         {
-            _comboNum += 1;
-            Gm.ChangeCoinNum(GoodBreathReward * (1 + _comboNum / 10));
-            Gm.ShowCombo(_comboNum);
+            if (e.IsBreathFull)
+            {
+                _comboNum += 1;
+                Gm.ChangeCoinNum(GoodBreathReward * (1 + _comboNum / 10));
+                Gm.ShowCombo(_comboNum);
+            }
+            else
+            {
+                Debug.Log("Breath not full");
+                _comboNum = 0;
+                Gm.ShowCombo(_comboNum);
+            }
         }
-        else
-        {
-            Debug.Log("Breath not full");
-            _comboNum = 0;
-            Gm.ShowCombo(_comboNum);
-        }
+
     }
 
     private void DisplayPointer()

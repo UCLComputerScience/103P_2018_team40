@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public float DmgBuffer;
     public int CoinNum;
     public double Score;
-
+    public bool LeaderboardViewing;
+        
     public MonsterManager Mm;
     public UIManager Um;
     public CharacterManager Cm;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     {
         DmgBuffer = 0;
         Score = 0;
+        LeaderboardViewing = false;
     }
 
     public bool HasEnoughCoin(int amount)
@@ -74,12 +76,14 @@ public class GameManager : MonoBehaviour
 
     public void HideForLeaderboard()
     {
+        LeaderboardViewing = true;
         ToggleChildrenRenderer(Mm.gameObject, false);
         ToggleChildrenRenderer(GameObject.Find("Canvas/Hitbar"), false);
     }
 
     public void CloseLeaderboard()
     {
+        LeaderboardViewing = false;
         ToggleChildrenRenderer(Mm.gameObject, true);
         ToggleChildrenRenderer(GameObject.Find("Canvas/Hitbar"), true);
     }

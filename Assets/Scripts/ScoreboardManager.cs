@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Fizzyo;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,17 +48,17 @@ public class ScoreboardManager : MonoBehaviour
         //yield return new WaitForSeconds(0.1f); // give enough time for insertion to apply
         // destory all previous entries
         DestoryEntries();
-        
+
         // query db through php website
         var web = new WWW(PhpUrl);
         yield return web;
         if (web.text == "" || web.text.StartsWith("Connection failed"))
         {
-            DisplayError("Connection Failed!");
+            DisplayError("Connection Failed! :" + web.text);
         }
         else if (web.text.StartsWith("Query failed"))
         {
-            DisplayError("Query Failed!");
+            DisplayError("Query Failed!" + web.text);
         }
         else
         {
@@ -91,12 +92,13 @@ public class ScoreboardManager : MonoBehaviour
             InvalidNameText.SetActive(true);
             return;
         }
+
         var form = new WWWForm();
         form.AddField("score", (int) _gm.Score);
         form.AddField("name", _name);
         var www = new WWW(PhpUrl, form);
         InvalidNameText.SetActive(false);
-        
+
         StartCoroutine(WaitForInsertion(www));
     }
 
@@ -117,5 +119,12 @@ public class ScoreboardManager : MonoBehaviour
         DestoryEntries();
         _gm.CloseLeaderboard();
         Destroy(gameObject);
+    }
+
+    public void UploadToFizzyo()
+    {
+//        Debug.Log("Uploading to fizzyo");
+//        FizzyoFramework.Instance.User.Login();
+        FizzyoFramework.Instance.Achievements.PostScore((int) _gm.Score);
     }
 }
