@@ -69,45 +69,47 @@ public class Hitbar : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (!_pausing)
+        if (_pausing)
         {
-            if (_movingDirction)
+            return;
+        }
+
+        if (_movingDirction)
+        {
+            _slider.value += MovingSpeed;
+            if (_slider.value == 1)
             {
-                _slider.value += MovingSpeed;
-                if (_slider.value == 1)
-                {
-                    _movingDirction = false;
-                }
+                _movingDirction = false;
             }
-            else
+        }
+        else
+        {
+            _slider.value -= MovingSpeed;
+            if (_slider.value == 0)
             {
-                _slider.value -= MovingSpeed;
-                if (_slider.value == 0)
-                {
-                    _movingDirction = true;
-                }
+                _movingDirction = true;
             }
         }
     }
 
     private void UpdateCombo(object sender, ExhalationCompleteEventArgs e) // TODO: find out why breath is always full
     {
-        if (!Gm.LeaderboardViewing)
+        if (Gm.LeaderboardViewing)
         {
-            if (e.IsBreathFull)
-            {
-                _comboNum += 1;
-                Gm.ChangeCoinNum(GoodBreathReward * (1 + _comboNum / 10));
-                Gm.ShowCombo(_comboNum);
-            }
-            else
-            {
-                Debug.Log("Breath not full");
-                _comboNum = 0;
-                Gm.ShowCombo(_comboNum);
-            }
+            return;
         }
-
+        if (e.IsBreathFull)
+        {
+            _comboNum += 1;
+            Gm.ChangeCoinNum(GoodBreathReward * (1 + _comboNum / 10));
+            Gm.ShowCombo(_comboNum);
+        }
+        else 
+        {
+            Debug.Log("Breath not full");
+            _comboNum = 0;
+            Gm.ShowCombo(_comboNum);
+        }
     }
 
     private void DisplayPointer()
