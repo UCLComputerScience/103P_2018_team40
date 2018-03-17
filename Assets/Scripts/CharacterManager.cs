@@ -7,8 +7,6 @@ public class CharacterManager : MonoBehaviour
 {
     public GameManager Gm;
 
-    // Use this for initialization
-
     public bool TrySpendingCoins(int amount)
     {
         if (!Gm.HasEnoughCoin(amount))

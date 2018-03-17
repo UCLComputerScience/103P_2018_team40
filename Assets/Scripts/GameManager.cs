@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
         
     public MonsterManager Mm;
     public UIManager Um;
-    public CharacterManager Cm;
     public BackgroundManager Bm;
     public AudioManager Am;
 

@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioSource SoundEffect;
     public AudioClip CoinGained;
     public AudioClip CoinSpent;
     public AudioClip[] Hits;
 
     public void PlayCoinGained()
     {
-        SoundEffect.clip = CoinGained;
-        SoundEffect.Play();
+        var audioSource = GetComponent<AudioObjectPool>().getAudioSource();
+        audioSource.clip = CoinGained;
+        audioSource.Play();
     }
     public void PlayCoinSpent()
     {
-        SoundEffect.clip = CoinSpent;
-        SoundEffect.Play();
+        var audioSource = GetComponent<AudioObjectPool>().getAudioSource();
+        audioSource.clip = CoinSpent;
+        audioSource.Play();
     }
     public void PlayHit()
     {
-        SoundEffect.clip = Hits[Random.Range(0, Hits.Length)];
-        SoundEffect.Play();
+        var audioSource = GetComponent<AudioObjectPool>().getAudioSource();
+        audioSource.clip = Hits[Random.Range(0, Hits.Length)];
+        audioSource.Play();
     }
 }
