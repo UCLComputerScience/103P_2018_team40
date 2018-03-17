@@ -15,7 +15,7 @@ public class AudioObjectPool : MonoBehaviour
         Audios.Add(ag);
     }
 
-    public AudioSource getAudioSource()
+    public AudioSource GetAudioSource()
     {
         foreach (var go in Audios)
         {

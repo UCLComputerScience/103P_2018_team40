@@ -10,19 +10,19 @@ public class AudioManager : MonoBehaviour
 
     public void PlayCoinGained()
     {
-        var audioSource = GetComponent<AudioObjectPool>().getAudioSource();
+        var audioSource = GetComponent<AudioObjectPool>().GetAudioSource();
         audioSource.clip = CoinGained;
         audioSource.Play();
     }
     public void PlayCoinSpent()
     {
-        var audioSource = GetComponent<AudioObjectPool>().getAudioSource();
+        var audioSource = GetComponent<AudioObjectPool>().GetAudioSource();
         audioSource.clip = CoinSpent;
         audioSource.Play();
     }
     public void PlayHit()
     {
-        var audioSource = GetComponent<AudioObjectPool>().getAudioSource();
+        var audioSource = GetComponent<AudioObjectPool>().GetAudioSource();
         audioSource.clip = Hits[Random.Range(0, Hits.Length)];
         audioSource.Play();
     }
