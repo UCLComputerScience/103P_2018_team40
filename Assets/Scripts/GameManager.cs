@@ -54,6 +54,11 @@ public class GameManager : MonoBehaviour
 
     public float GetDamage()
     {
+        if (LeaderboardViewing)
+        {
+            DmgBuffer = 0;
+            return 0;
+        }
         var dmg = DmgBuffer;
         DmgBuffer = 0;
         AddScore(dmg);
