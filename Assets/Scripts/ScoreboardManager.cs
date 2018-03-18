@@ -16,7 +16,7 @@ public class ScoreboardManager : MonoBehaviour
 
     private GameManager _gm;
     private string _name = "Default";
-    private const string PhpUrl = "https://fizzyogaming6.azurewebsites.net";
+    private const string PhpUrl = "http://fizzyogaming6.azurewebsites.net";
 
     private void Awake()
     {
@@ -45,20 +45,21 @@ public class ScoreboardManager : MonoBehaviour
 
     private IEnumerator DisplayEntries()
     {
-        //yield return new WaitForSeconds(0.1f); // give enough time for insertion to apply
-        // destory all previous entries
         DestoryEntries();
 
         // query db through php website
         var web = new WWW(PhpUrl);
         yield return web;
+        Debug.Log("WWW url is: " + PhpUrl);
+        Debug.Log("WWW error is: " + web.error);
+        Debug.Log("WWW text is: " + web.text);
         if (web.text == "" || web.text.StartsWith("Connection failed"))
         {
-            DisplayError("Connection Failed! :" + web.text);
+            DisplayError("Connection Failed!");
         }
         else if (web.text.StartsWith("Query failed"))
         {
-            DisplayError("Query Failed!" + web.text);
+            DisplayError("Query Failed!");
         }
         else
         {
