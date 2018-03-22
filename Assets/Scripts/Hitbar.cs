@@ -100,6 +100,7 @@ public class Hitbar : MonoBehaviour
         }
         if (e.IsBreathFull)
         {
+            Debug.Log("Breath is full");
             _comboNum += 1;
             Gm.ChangeCoinNum(GoodBreathReward * (1 + _comboNum / 10));
             Gm.ShowCombo(_comboNum);

@@ -100,8 +100,7 @@ public class CalibrateScene : MonoBehaviour {
 
     void NextScene()
     {
-        Object.DontDestroyOnLoad(GameObject.Find("(singleton) Fizzyo.FizzyoFramework"));
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
 

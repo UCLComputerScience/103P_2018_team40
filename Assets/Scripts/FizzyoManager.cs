@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using Fizzyo;
 
-
+// class adapted from the example on https://github.com/Fizzyo/FizzyoFramework-Unity
 public class FizzyoManager : MonoBehaviour
 {
     void Start()
@@ -27,7 +27,6 @@ public class FizzyoManager : MonoBehaviour
         {
             return false;
         }
-
         return true;
     }
 

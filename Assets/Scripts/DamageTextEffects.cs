@@ -15,7 +15,7 @@ public class DamageTextEffects : MonoBehaviour
         StartCoroutine(MoveUp());
     }
 
-    //https://answers.unity.com/questions/225438/slowly-fades-from-opaque-to-alpha.html
+    // function adapted from https://answers.unity.com/questions/225438/slowly-fades-from-opaque-to-alpha.html
     private IEnumerator Fade()
     {
         yield return new WaitForSeconds(MoveUpTime - FadeTime);
