@@ -5938,7 +5938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DmgBuffer: 0
-  CoinNum: 99999
+  CoinNum: 1000
   Score: 0
   LeaderboardViewing: 0
   Mm: {fileID: 1864607963}
